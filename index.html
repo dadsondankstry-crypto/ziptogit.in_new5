@@ -1,0 +1,1103 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><meta name="theme-color" content="#101729"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Files Explorer v4.4</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%236e6bff'/%3E%3Cpath d='M12 23a6 6 0 016-6h12l6 6h10a6 6 0 016 6v17a6 6 0 01-6 6H18a6 6 0 01-6-6z' fill='white'/%3E%3C/svg%3E">
+<style>
+:root{color-scheme:dark;--bg:#0b1020;--panel:#151d31;--card:#1a2439;--stroke:#29344d;--text:#f6f8ff;--sub:#9ba9c5;--accent:#8985ff;--accent2:#625cf7;--danger:#ff718b}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font:15px/1.4 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}button,input{font:inherit}button{cursor:pointer;touch-action:manipulation}button:focus-visible,input:focus-visible{outline:2px solid var(--accent)}button:disabled{opacity:.4}#app{max-width:600px;min-height:100dvh;margin:auto;padding:calc(env(safe-area-inset-top) + 20px) 18px calc(env(safe-area-inset-bottom) + 112px)}header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}header .eyebrow{font-size:12px;color:var(--sub);font-weight:700;letter-spacing:1.8px;text-transform:uppercase}h1{font-size:30px;line-height:1.15;margin:5px 0 0;letter-spacing:-1px}h2{margin:0;font-size:18px}.avatar{width:46px;height:46px;border-radius:16px;border:1px solid #45477c;background:#27274c;color:#bdbaff;font-size:22px}.search{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--stroke);border-radius:18px;padding:0 15px;height:53px;color:var(--sub)}.search input{border:0;outline:0;background:transparent;color:var(--text);width:100%;min-width:0}.search input::placeholder{color:#7d8aa6}.overview{margin:22px 0 24px;padding:20px;border-radius:24px;background:linear-gradient(125deg,#5858db,#3e47a7 55%,#272f66);box-shadow:0 12px 30px #0003}.overview-top{display:flex;justify-content:space-between;align-items:center;gap:8px}.overview strong{font-size:17px}.overview small{color:#dadcff}.usage{display:flex;gap:6px;margin:18px 0 10px;height:8px;border-radius:20px;overflow:hidden;background:#ffffff35}.usage span{background:#dcdcff;border-radius:20px;min-width:0;transition:width .2s}.section-head{display:flex;align-items:center;justify-content:space-between;margin:24px 0 12px}.link{border:0;background:none;color:#aaa7ff;font-weight:700;padding:8px 0}.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.tile{min-width:0;border:1px solid var(--stroke);border-radius:18px;background:var(--panel);color:var(--text);padding:14px 4px;display:flex;flex-direction:column;gap:10px;align-items:center;font-size:12px}.tile i{font-style:normal;font-size:25px}.tile.active{border-color:#8580ff;background:#24264c}.crumb{font-size:13px;color:var(--sub);display:flex;align-items:center;gap:7px;overflow:auto;white-space:nowrap;padding:6px 0 2px;scrollbar-width:none}.crumb button{background:none;border:0;color:#b8b7ff;padding:4px}.toolbar{display:flex;align-items:center;gap:8px}.toolbar button{border:1px solid var(--stroke);border-radius:11px;background:var(--panel);color:var(--sub);min-height:34px;padding:4px 9px}.list{display:flex;flex-direction:column;gap:9px}.file{display:flex;align-items:center;gap:12px;padding:11px 10px;border:1px solid var(--stroke);border-radius:17px;background:var(--panel);min-height:72px}.file.selected{border-color:var(--accent);background:#24274b}.file-main{display:flex;align-items:center;flex:1;min-width:0;gap:12px;text-align:left;border:0;background:none;color:inherit;padding:0}.file-icon{width:49px;height:49px;border-radius:14px;background:#2a3251;display:grid;place-items:center;flex-shrink:0;font-size:23px}.file-info{min-width:0;display:flex;flex-direction:column;gap:4px}.file-name{font-size:14px;font-weight:650;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.file-meta{font-size:12px;color:var(--sub)}.dots{border:0;background:transparent;color:#bfc8e2;font-size:24px;padding:7px;line-height:1}.empty{text-align:center;color:var(--sub);border:1px dashed var(--stroke);border-radius:20px;padding:38px 16px}.empty b{display:block;font-size:16px;color:var(--text);margin:9px 0}.empty span{font-size:35px}nav{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:min(600px,100%);background:#151b2df5;border-top:1px solid var(--stroke);padding:10px 13px calc(env(safe-area-inset-bottom) + 13px);display:flex;justify-content:space-around;align-items:center;z-index:10;backdrop-filter:blur(12px)}nav button{border:0;background:none;color:#8e9bb8;display:flex;align-items:center;flex-direction:column;gap:4px;font-size:11px;min-width:58px}nav button b{font-size:21px;font-weight:400}nav button.on{color:#afaaff}nav .add{width:56px;height:56px;border-radius:19px;background:var(--accent2);color:white;font-size:29px;box-shadow:0 7px 20px #504bd64d;margin-top:-30px}.shade{position:fixed;inset:0;background:#050816b8;z-index:20;display:flex;align-items:flex-end;justify-content:center}.sheet{background:#1a2337;border:1px solid #35405b;border-bottom:0;width:min(600px,100%);max-height:88dvh;overflow:auto;border-radius:26px 26px 0 0;padding:14px 20px calc(env(safe-area-inset-bottom) + 24px);box-shadow:0 -15px 50px #0008}.handle{width:40px;height:5px;border-radius:10px;background:#5d6780;margin:0 auto 20px}.sheet h2{margin:0 0 18px}.action{display:flex;align-items:center;width:100%;gap:14px;background:none;border:0;border-bottom:1px solid #303b52;padding:15px 5px;color:var(--text);text-align:left}.action span{font-size:22px}.action.danger{color:var(--danger)}.form-input{width:100%;background:#10182b;border:1px solid #44516b;color:var(--text);border-radius:13px;padding:14px;outline:0;margin:0 0 14px}.primary{background:var(--accent2);color:white;border:0;border-radius:13px;width:100%;padding:14px;font-weight:750}.secondary{background:#313c55;color:white;border:0;border-radius:13px;width:100%;padding:13px;margin-top:9px}.preview{max-width:100%;max-height:48dvh;display:block;margin:0 auto 18px;border-radius:12px}.preview-text{white-space:pre-wrap;word-break:break-word;max-height:45dvh;overflow:auto;background:#0c1526;padding:15px;border-radius:12px;color:#d6e0f3}.toast{position:fixed;bottom:110px;left:50%;transform:translateX(-50%);padding:12px 18px;border-radius:14px;background:#303a5c;color:white;box-shadow:0 7px 20px #0008;z-index:50;max-width:90%;text-align:center;font-size:13px}.muted{color:var(--sub);font-size:13px}.badge{color:#b0aaff;background:#34315d;padding:3px 8px;border-radius:8px;font-size:11px}.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.hidden{display:none!important}@media(min-width:700px){body{background:#060a15}#app{border-left:1px solid #1f2940;border-right:1px solid #1f2940}}
+.storage-badge{font-size:12px;color:#c9c8ff;background:#202943;border:1px solid #344160;border-radius:10px;padding:8px 11px;margin:0 0 10px}.selection-status{font-size:12px;padding:11px;background:#28264c;color:#e0dfff;border-radius:10px;margin:8px 0}.settings-panel{margin-top:0}#settingsPage{padding-top:4px}#settingsPage>.section-head{margin:7px 0 12px}#topSettings[aria-expanded="true"]{background:#504bc0;border-color:#8d89ff}.file-main{touch-action:pan-y}#fileList{min-height:120px}.settings-panel .setting-line{min-height:46px}
+
+/* v1.4: cartões ajustáveis, avisos de transferência e seleção direta */
+#app[data-density="compact"] .list{gap:4px}
+#app[data-density="compact"] .file{min-height:51px;padding:4px 8px;gap:8px;border-radius:11px}
+#app[data-density="compact"] .file-icon{width:35px;height:35px;font-size:19px;border-radius:9px}
+#app[data-density="compact"] .file-main{gap:8px}
+#app[data-density="compact"] .file-info{gap:0}
+#app[data-density="large"] .list{gap:12px}
+#app[data-density="large"] .file{min-height:85px;padding:15px 13px}
+#app[data-density="large"] .file-icon{width:57px;height:57px;font-size:29px}
+#app[data-density="large"] .file-name{font-size:16px}
+.quick-panel{margin:10px 0;display:flex;flex-wrap:wrap;align-items:center;gap:7px;padding:10px;border:1px solid #454877;background:#1e2742;border-radius:13px}
+.quick-panel .quick-label{flex:1 1 100%;font-size:12px;color:#d4d3ff;overflow-wrap:anywhere}
+.quick-panel button{border:1px solid #495879;background:#313b62;color:#fff;border-radius:10px;padding:10px 12px;min-height:40px;flex:1 1 auto}
+.quick-panel button.warn{background:#68364a;border-color:#8a5160}
+#app[data-density="compact"] .file-meta{font-size:11px}
+#app[data-layout="grid"] .list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+#app[data-layout="grid"] .file{position:relative;flex-direction:column;align-items:stretch;min-width:0;padding:12px 8px;gap:1px}
+#app[data-layout="grid"] .file-main{flex-direction:column;align-items:center;text-align:center;padding:5px 0 12px;gap:7px}
+#app[data-layout="grid"] .file-info{max-width:100%;width:100%;text-align:center}
+#app[data-layout="grid"] .file-name{white-space:normal;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#app[data-layout="grid"] .dots{position:absolute;right:1px;top:1px}
+#app[data-layout="grid"] .file-icon{width:52px;height:52px}
+.history-row{display:flex;gap:8px;align-items:center;margin:8px 0;flex-wrap:wrap}
+.history-row button{border:1px solid var(--stroke);background:var(--panel);color:var(--text);padding:8px 11px;border-radius:10px;min-height:37px}
+.history-row button:disabled{opacity:.3}
+#searchProgress{flex:1 1 100%;font-size:11px}
+.history-row{justify-content:space-between}.history-row button{flex:1 1 auto;padding:8px 6px;font-size:12px}#favoritesBtn{color:#ffdd86}.file-name{max-width:100%}
+/* Files Explorer 2.1: apenas pastas reais, editor amplo e menu acessível */
+.app-title-row{position:relative;gap:8px}.app-title-row>div{margin-right:auto}.app-title-row button{flex-shrink:0}
+#app:not(.browse-connected) #browserPage{display:none}
+#app:not(.browse-connected) .search{display:none}
+#categories,.overview{display:none!important}
+#browserPage{min-height:calc(100dvh - 230px)}#fileList{min-height:180px;padding-bottom:60px}
+#app.browse-connected #fileList:empty{min-height:250px}
+.editor-shade{align-items:stretch;background:var(--bg)}.editor-shade>.sheet{display:flex;flex-direction:column;max-height:100dvh;height:100dvh;width:100%;max-width:none;border:0;border-radius:0;padding:env(safe-area-inset-top) 12px env(safe-area-inset-bottom);overflow:hidden}
+.editor-shade .handle{display:none}.editor-sheet{display:flex;flex-direction:column;flex:1;min-height:0}.editor-header{display:flex;align-items:center;gap:8px;padding:10px 0}.editor-header h2{font-size:17px;min-width:0;flex:1;margin:0}.editor-header .secondary{width:auto;margin:0;flex-shrink:0;padding:10px}
+.editor-identity{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:9px}.editor-identity .form-input{margin-bottom:8px;min-width:0}
+.editor-sheet #newFileText{flex:1;min-height:0;height:auto!important;max-height:none!important;margin:0 0 8px!important;resize:none;width:100%;font-size:16px}
+.editor-actions{display:grid;grid-template-columns:1fr 2fr;gap:8px;padding:3px 0 8px}.editor-actions button{margin:0}.save-identity-overlay{position:absolute;inset:0;background:#050816d9;display:grid;place-items:center;z-index:30;padding:15px}.save-identity-card{background:#1a2337;border:1px solid #44516b;border-radius:17px;padding:18px;width:min(440px,100%)}
+#viewerInfo{display:none!important}
+.settings-group-heading{margin:24px 0 8px;font-size:18px;border-top:1px solid #34415b;padding-top:18px}.settings-folder-switch{padding:16px;border:1px solid #34415b;border-radius:16px;background:#151d31;margin:18px 0}.settings-folder-switch h2{margin:0 0 10px;font-size:18px}.settings-folder-switch button{width:100%;margin-top:12px;min-height:48px}.settings-panel .setting-line span{min-width:0;line-height:1.35}#settingsPage .settings-panel{padding:14px}#settingsPage .setting-line{gap:12px} 
+/* v2.8: editores com linhas, histórico e contagem */
+.edit-stat-counter{font-size:12px;color:#aebcd7;padding:5px 8px;flex-shrink:0;text-align:right}.edit-stat-counter[hidden]{display:none!important}
+.edit-tools{flex-wrap:wrap}
+.code-edit-wrap{display:flex;flex:1;min-height:0;overflow:hidden;border:1px solid #33415b;border-radius:12px;background:#0b1425}
+.code-edit-wrap .code-gutter{flex:0 0 47px;overflow:hidden;text-align:right;padding:15px 8px 15px 0;color:#8391b2;background:#151e33;border-right:1px solid #32415d;white-space:pre;font:13px/1.6 ui-monospace,Consolas,monospace;user-select:none;pointer-events:none}
+.code-edit-wrap .viewer-editor{border:0;border-radius:0;flex:1;min-width:0;min-height:0;height:100%;overflow:auto;white-space:pre;tab-size:2}
+.edit-tools{display:flex;gap:7px;flex-wrap:wrap;margin:5px 0 8px}
+.edit-tools button{min-height:39px;border:1px solid #536184;background:#303b59;color:#eef2ff;border-radius:9px;padding:7px 11px;font-size:14px}
+.edit-tools button:disabled{opacity:.4}
+.editor-sheet .code-edit-wrap{margin-bottom:8px;flex:1}
+.editor-sheet .code-edit-wrap #newFileText{margin:0!important;max-height:none!important;height:100%!important}
+
+/* v2.7: localizar/substituir e navegar por linhas */
+.edit-find-panel{display:grid;gap:7px;padding:9px;background:#141e33;border:1px solid #40506c;border-radius:10px;margin:0 0 7px}
+.edit-find-panel.hidden{display:none}
+.edit-find-panel input{width:100%;min-width:0;background:#0e1729;color:#f1f5ff;border:1px solid #53617c;border-radius:9px;padding:9px;font-size:16px}
+.edit-find-panel .edit-find-actions{display:flex;flex-wrap:wrap;gap:6px}
+.edit-find-panel button,.edit-tools button{min-height:36px}
+.edit-find-panel .edit-find-actions button{margin:0;padding:7px 10px;font-size:13px;flex:1 1 auto}
+.edit-find-status{font-size:12px;color:#b7c7e9}
+.edit-line-row{display:flex;gap:7px;align-items:center}
+.edit-line-row label{white-space:nowrap;font-size:13px}
+.edit-line-row input{flex:1}
+@media(max-width:390px){.edit-tools{flex-wrap:wrap}.edit-tools button{font-size:12px;padding:6px 8px}}
+
+/* v3.0: destaque seguro de código e modo de leitura */
+.viewer-code .tok-string{color:#a8e6a1}.viewer-code .tok-comment{color:#8797b1;font-style:italic}.viewer-code .tok-keyword{color:#9dc4ff;font-weight:600}.viewer-code .tok-number{color:#ffd49b}.viewer-code .tok-tag{color:#ff9aaf}.viewer-code .tok-attr{color:#e8c6ff}
+.viewer-shade.reading-mode .viewer-tabs,.viewer-shade.reading-mode .viewer-footer,.viewer-shade.reading-mode .viewer-notice{display:none!important}
+.viewer-shade.reading-mode .viewer-content{flex:1}.viewer-head .read-toggle{border:1px solid #52617b;background:#1c2940;color:#eef4ff;border-radius:9px;padding:9px;font-size:12px}
+ .read-match{background:#ffcf66;color:#121826;border-radius:2px}
+</style>
+<style>
+#settingsPage .overview{margin:18px 0}#settingsPage .section-head{margin:20px 0 12px}#settingsPage #openDeviceFolder{margin-top:12px!important}.settings-note{margin-top:24px;padding:20px;background:var(--panel);border:1px solid var(--stroke);border-radius:18px;color:var(--sub)}.settings-note b{color:var(--text)}.start-folder{margin:16px 0}.start-folder p{margin:10px 4px}.browse-connected #browserPage .section-head{margin-top:15px}.browse-connected #browserPage .crumb{padding-top:0}.browse-connected #browserPage .list{margin-top:9px}#settingsPage .tiles{margin-bottom:12px}
+
+#app{padding-top:calc(env(safe-area-inset-top) + 14px)}
+.search{margin-bottom:10px}
+#browserPage .section-head{margin:12px 0 5px}
+.toolbar button.active{background:#39346d;color:white;border-color:var(--accent)}
+#batchBtn{font-size:22px;line-height:1}
+.batch-summary{color:var(--sub);font-size:13px;padding:8px 2px}
+.storage-badge{font-size:12px;color:#c9c8ff;background:#202943;border:1px solid #344160;border-radius:10px;padding:8px 11px;margin:0 0 10px}.selection-status{font-size:12px;padding:11px;background:#28264c;color:#e0dfff;border-radius:10px;margin:8px 0}.settings-panel{margin-top:0}#settingsPage{padding-top:4px}#settingsPage>.section-head{margin:7px 0 12px}#topSettings[aria-expanded="true"]{background:#504bc0;border-color:#8d89ff}.file-main{touch-action:pan-y}#fileList{min-height:120px}.settings-panel .setting-line{min-height:46px}
+</style><style>
+/* Visualizador expandido */
+.shade.viewer-shade{align-items:stretch}.viewer-shade .sheet{width:min(850px,100%);height:100dvh;max-height:100dvh;border-radius:0;border:0;padding:calc(env(safe-area-inset-top) + 12px) 14px calc(env(safe-area-inset-bottom) + 16px);display:flex;flex-direction:column;gap:10px}
+.viewer-head{display:flex;align-items:center;gap:10px}.viewer-head h2{font-size:17px;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}.viewer-close{background:#303b55;color:white;border:0;border-radius:12px;padding:10px 14px}.viewer-tabs{display:flex;gap:8px;flex-wrap:wrap}.viewer-tabs button{border:1px solid #44516b;border-radius:11px;background:#252f49;color:#f6f8ff;padding:9px 12px}.viewer-tabs button.active{background:#625cf7;border-color:#8985ff}
+.viewer-content{min-height:0;flex:1;overflow:auto;border-radius:13px;background:#0b1425;border:1px solid #33415b}.viewer-code{margin:0;padding:15px;white-space:pre;overflow:auto;min-height:100%;font:13px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;color:#e3ebff;tab-size:2}.viewer-editor{display:block;width:100%;height:100%;min-height:280px;border:0;background:#0b1425;color:#e3ebff;resize:none;padding:15px;font:13px/1.6 ui-monospace,Consolas,monospace;outline:none;tab-size:2}
+.viewer-frame{width:100%;height:100%;min-height:320px;border:0;background:white}.viewer-footer{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.viewer-footer button{flex:1;min-width:95px}.viewer-info{font-size:12px;color:#aebcd7;overflow-wrap:anywhere}.viewer-notice{font-size:12px;color:#ffdb9a}.viewer-image{display:block;max-width:100%;max-height:100%;margin:auto}.viewer-content audio,.viewer-content video{max-width:100%;width:100%}
+.storage-badge{font-size:12px;color:#c9c8ff;background:#202943;border:1px solid #344160;border-radius:10px;padding:8px 11px;margin:0 0 10px}.selection-status{font-size:12px;padding:11px;background:#28264c;color:#e0dfff;border-radius:10px;margin:8px 0}.settings-panel{margin-top:0}#settingsPage{padding-top:4px}#settingsPage>.section-head{margin:7px 0 12px}#topSettings[aria-expanded="true"]{background:#504bc0;border-color:#8d89ff}.file-main{touch-action:pan-y}#fileList{min-height:120px}.settings-panel .setting-line{min-height:46px}
+</style><style>
+.order-controls{display:flex;gap:8px}.order-controls button,.detail-copy-actions button{min-height:44px;border-radius:10px;border:1px solid #465578;background:#303c5d;color:white;padding:8px 13px}.detail-copy-actions{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0}.detail-copy-actions button{flex:1}.order-controls button:disabled{opacity:.3}
+.app-title-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.top-settings,.toolbar-btn{border:1px solid #37445f;border-radius:12px;background:#1b2640;color:#f6f8ff;min-width:44px;min-height:44px;font-size:23px}.toolbar-btn{font-size:13px;padding:6px 12px}
+.list{gap:5px}.file{min-height:60px;padding:6px 9px;border-radius:13px;gap:9px}.file-icon{width:43px;height:43px;border-radius:11px;font-size:20px}.file-info{gap:2px}.file-main{gap:9px}.dots{min-width:35px;min-height:43px}
+#app{padding-bottom:calc(env(safe-area-inset-bottom) + 28px)}#app:has(+nav:not(.hidden)){padding-bottom:calc(env(safe-area-inset-bottom) + 112px)}
+.settings-panel{border:1px solid #35405b;border-radius:16px;padding:16px;background:#151d31;margin:14px 0 22px}.settings-panel h2{margin:0 0 12px}.setting-line{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:13px 0;border-bottom:1px solid #34415b;font-size:14px}.setting-line input{width:23px;height:23px;accent-color:#625cf7}.settings-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.settings-actions button{margin:0;min-height:43px;font-size:13px}.settings-panel .muted{line-height:1.5}
+.storage-badge{font-size:12px;color:#c9c8ff;background:#202943;border:1px solid #344160;border-radius:10px;padding:8px 11px;margin:0 0 10px}.selection-status{font-size:12px;padding:11px;background:#28264c;color:#e0dfff;border-radius:10px;margin:8px 0}.settings-panel{margin-top:0}#settingsPage{padding-top:4px}#settingsPage>.section-head{margin:7px 0 12px}#topSettings[aria-expanded="true"]{background:#504bc0;border-color:#8d89ff}.file-main{touch-action:pan-y}#fileList{min-height:120px}.settings-panel .setting-line{min-height:46px}
+</style>
+<style>
+.app-title-row{margin-bottom:3px!important}.browse-connected #browserPage .crumb{padding:0 0 3px!important;margin:0!important;gap:2px!important}.browse-connected #browserPage .list{margin-top:4px!important}.browse-connected #browserPage .section-head{margin-top:4px!important;margin-bottom:2px!important}#browserPage .history-row{margin:0 0 3px!important}#browserPage .quick-panel{position:relative;z-index:2}#selectionActions:not(.hidden){border:1px solid #7970f3;background:#222845;padding:12px;border-radius:14px;margin:7px 0;display:flex;flex-wrap:wrap;gap:7px}#selectionActions button{background:#3b4260;border:1px solid #606989;color:white;border-radius:9px;padding:10px;min-height:42px}#selectionActions button.warn{color:#ff9ead}#selectionActions .quick-label{width:100%;font-weight:700}#clipboardPanel:not(.hidden){border:1px solid #4b658d;padding:12px;border-radius:13px;margin:7px 0;display:flex;flex-wrap:wrap;gap:7px}#clipboardPanel button{background:#414669;color:white;border:0;border-radius:9px;padding:9px}#clipboardPanel .quick-label{width:100%}
+#bottomNav{justify-content:space-between;gap:2px;padding-left:5px;padding-right:5px}#bottomNav button{min-width:0;flex:1;font-size:9px;padding:4px 1px}#bottomNav button b{font-size:19px}#bottomNav .add{flex:0 0 52px;width:52px;height:52px;font-size:28px}
+.settings-categories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin:18px 0}.settings-category{min-height:106px;background:#18233b;border:1px solid #3b4966;color:#f6f8ff;border-radius:16px;text-align:left;padding:15px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;position:relative}.settings-category strong{font-size:15px}.settings-category small{font-size:12px;color:#aebbd0}.settings-category>span{position:absolute;right:11px;top:11px;color:#aaa6ff} .settings-section{border:1px solid #35405b;border-radius:16px;padding:13px;background:#151d31;margin:14px 0 22px}.settings-section .settings-group-heading{margin-top:10px}.settings-return{max-width:100%;margin-bottom:9px}.settings-section .settings-folder-switch,.settings-section .settings-note{margin:0;border:0;background:transparent;padding:0} @media(max-width:360px){.settings-categories{gap:7px}.settings-category{padding:10px}.settings-category strong{font-size:13px}}
+
+/* v2.4: edição compacta, seleção explícita e barra configurável */
+.settings-section .setting-line{min-height:43px;padding:9px 0;gap:10px;font-size:13px}.settings-section .settings-group-heading{margin:14px 0 6px;padding-top:12px;font-size:16px}.settings-section .muted{line-height:1.45}.settings-section{padding:12px;margin:10px 0 14px}.settings-section .secondary{min-height:44px}.dock-config-row{display:grid;grid-template-columns:74px minmax(0,1fr);gap:12px;align-items:center;padding:7px 0;border-bottom:1px solid #303b52}.dock-config-row select{margin:0!important;min-width:0;width:100%;padding:10px}.dock-config-row strong{font-size:13px;color:#c6d0e9}.selection-active #browserPage{border-top:2px solid #8c81ff}.selection-active .selection-status{background:#41398a;color:white;border:1px solid #a89fff;font-weight:700}.selection-active #bottomNav{border-top:2px solid #8e83ff}.selection-active .app-title-row{border-bottom:1px solid #8e83ff}.selection-mode-label{background:#41398a;color:white;border:1px solid #9189ff;padding:10px;border-radius:11px;font-weight:700;margin:8px 0}.settings-section .settings-folder-switch{margin:0}
+#bottomNav .dock-placeholder{visibility:hidden;pointer-events:none}#bottomNav button{min-width:0;min-height:40px}#bottomNav .add{min-height:40px}
+
+/* v2.6: sete atalhos com aparência uniforme e alvos de toque iguais */
+#bottomNav{align-items:stretch;padding-top:9px;gap:3px}
+#bottomNav button,#bottomNav .add{flex:1 1 0!important;min-width:0!important;width:auto!important;height:auto!important;min-height:53px!important;margin:0!important;padding:5px 1px!important;border:0!important;border-radius:9px!important;background:transparent!important;color:#9aa6c3!important;box-shadow:none!important;transform:none!important;font:inherit!important;font-size:9px!important;display:flex!important;align-items:center;justify-content:center;flex-direction:column;gap:3px}
+#bottomNav button b,#bottomNav .add b{font-size:20px!important;font-weight:400;line-height:1.1}
+#bottomNav button.on{color:#bcb8ff!important;background:#24284a!important}
+#bottomNav .dock-placeholder{visibility:hidden!important}
+/* menus mais diretos: sem repetição de emoji e com área tocável */
+#actions .action{min-height:50px;padding:11px 5px;gap:11px}
+#actions .action span{flex-shrink:0}
+.viewer-footer{display:flex;flex-wrap:wrap;gap:7px}.viewer-footer .secondary{flex:1 1 130px;min-width:0}
+.viewer-tabs button{min-height:42px}
+
+/* v3.6: seleção compacta, fixa e independente da rolagem */
+.shade.action-fullscreen{align-items:stretch}
+.shade.action-fullscreen .sheet{height:100dvh;max-height:100dvh;width:100%;max-width:none;border:0;border-radius:0;padding:calc(env(safe-area-inset-top) + 18px) 20px calc(env(safe-area-inset-bottom) + 20px);overflow:auto}
+.shade.action-fullscreen .handle{display:none}
+#selectionStatus:not(.hidden){position:fixed;top:env(safe-area-inset-top);left:50%;transform:translateX(-50%);width:min(600px,100%);z-index:12;padding:9px 13px;background:#343076;border-bottom:1px solid #817cff;color:#fff;font-size:12px;font-weight:650;white-space:normal;box-shadow:0 4px 18px #0005}
+#selectionActions:not(.hidden){position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom) + 77px);width:min(600px,100%);z-index:12;display:flex;flex-wrap:nowrap;gap:3px;align-items:stretch;padding:6px 5px!important;margin:0!important;border-radius:0!important;background:#1b2540!important;border:1px solid #434f70!important;box-shadow:0 -4px 14px #0006;overflow-x:auto;scrollbar-width:thin}
+#selectionActions button{min-width:0;flex:1 0 auto;white-space:nowrap;font-size:12px;padding:9px 7px!important;min-height:40px!important}
+body:has(#bottomNav.hidden) #selectionActions:not(.hidden){bottom:env(safe-area-inset-bottom)}
+body:has(#bottomNav.hidden) #selectionActions:not(.hidden) button{flex:1}
+#app:has(~ #selectionActions:not(.hidden)){padding-bottom:calc(env(safe-area-inset-bottom) + 175px)}
+#app:has(~ #selectionStatus:not(.hidden)){padding-top:calc(env(safe-area-inset-top) + 65px)}
+
+/* v3.6: menus contextuais proporcionais e botao fechar */
+.shade.action-fullscreen{align-items:flex-end!important}
+.shade.action-fullscreen .sheet{height:auto!important;max-height:calc(100dvh - env(safe-area-inset-top))!important;width:min(600px,100%)!important;max-width:600px!important;border:1px solid #35405b!important;border-bottom:0!important;border-radius:22px 22px 0 0!important;padding:14px 17px calc(env(safe-area-inset-bottom) + 18px)!important;overflow-y:auto!important}
+.shade.action-fullscreen .handle{display:block!important;margin-bottom:12px}
+.action-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}.action-heading h2{margin:0;min-width:0;font-size:17px}.action-heading .viewer-close{white-space:nowrap;flex-shrink:0}
+.viewer-top-tools{display:flex;gap:6px;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:thin}.viewer-top-tools button{flex-shrink:0;white-space:nowrap}
+.viewer-tabs{flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:thin;min-height:43px}.viewer-tabs button{white-space:nowrap;flex:1 0 auto}
+.viewer-footer{flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:thin}.viewer-footer .secondary{flex:1 0 auto!important;min-width:0!important;white-space:nowrap;font-size:12px;padding:10px 9px}
+.viewer-shade.reading-mode .viewer-top-tools{display:flex}.viewer-shade.reading-mode #viewerTitle{display:none}
+.viewer-shade.reading-mode .viewer-head{justify-content:flex-end}
+.viewer-shade.reading-mode .viewer-content .viewer-editor{min-height:0}
+</style><style>.viewer-find-panel{border:1px solid #465577;background:#1a2540;padding:10px;border-radius:12px;display:grid;gap:8px}.viewer-find-row{display:flex;gap:6px;align-items:center}.viewer-find-row input{flex:1;min-width:0;border:1px solid #53627c;background:#0c1527;color:#fff;border-radius:9px;padding:12px;font-size:16px}.viewer-find-row button{flex-shrink:0;min-width:44px;padding:10px}.viewer-shade.reading-mode .viewer-top-tools{display:flex}</style><style>
+.viewer-shade.reading-mode .viewer-top-tools{display:flex!important}
+.viewer-shade.reading-mode .viewer-top-tools #viewerReadSearch{display:none!important}
+.viewer-shade.reading-mode .viewer-head{justify-content:flex-end}
+.viewer-shade .viewer-top-tools button{flex:1;min-width:0}
+</style><style>
+/* v4.0 — padronização do visualizador e editor */
+.viewer-shade .sheet{gap:9px!important;padding-left:12px!important;padding-right:12px!important}
+.viewer-shade .viewer-head{gap:8px;min-height:44px}
+.viewer-shade .viewer-head h2{font-size:17px;font-weight:650}
+.viewer-shade .viewer-close{min-height:42px;border-radius:11px;padding:8px 13px}
+.viewer-shade .viewer-top-tools,.viewer-shade .viewer-tabs{display:flex!important;flex-wrap:nowrap!important;gap:7px!important;overflow:visible!important;min-width:0;width:100%}
+.viewer-shade .viewer-top-tools button,.viewer-shade .viewer-tabs button,.viewer-shade .viewer-head .read-toggle{
+ appearance:none!important;box-sizing:border-box!important;display:inline-flex;align-items:center;justify-content:center;
+ flex:1 1 0!important;min-width:0!important;max-width:100%!important;width:0!important;min-height:43px!important;
+ margin:0!important;border-radius:11px!important;border:1px solid #4d5975!important;
+ background:#27324e!important;color:#eef3ff!important;padding:8px 7px!important;font-size:clamp(12px,3.1vw,15px)!important;
+ font-weight:500!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.viewer-shade .viewer-top-tools button.active,.viewer-shade .viewer-tabs button.active{background:#6159f3!important;border-color:#8c82ff!important}
+.viewer-shade .viewer-top-tools button.hidden,.viewer-shade .viewer-tabs button.hidden{display:none!important}
+.viewer-shade .viewer-content{min-height:0!important;flex:1 1 auto!important}
+.viewer-shade .viewer-footer{flex:0 0 auto;display:flex;gap:7px;min-height:0;overflow-x:auto;overflow-y:hidden;padding-bottom:2px}
+.viewer-shade .viewer-footer button{flex:1 1 0!important;min-width:0!important;font-size:clamp(11px,3vw,14px)!important;
+ padding:10px 5px!important;background:#303b59!important;border:1px solid #4e5d79!important;border-radius:11px!important;
+ white-space:nowrap!important;min-height:42px!important}
+.viewer-shade .viewer-footer button:last-child{background:#625cf7!important;border-color:#8c83ff!important}
+.viewer-shade .viewer-content .editor-quick-top,.viewer-shade .viewer-content .editor-quick-bottom{gap:4px!important;margin:0!important;padding:4px!important;background:#15223a!important}
+.viewer-shade .viewer-content .editor-quick-bottom{border-top:1px solid #344362!important}
+.viewer-shade .viewer-content .editor-quick-bottom button,.viewer-shade .viewer-content .editor-quick-top button{min-height:38px!important;padding:6px 2px!important}
+.viewer-find-panel{max-width:100%;box-sizing:border-box;overflow:hidden!important;padding:10px!important}
+.viewer-find-panel .viewer-find-row{display:grid!important;grid-template-columns:minmax(0,1fr) auto auto!important;gap:5px!important;min-width:0}
+.viewer-find-panel .viewer-find-row input{width:100%!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+.viewer-find-panel .viewer-find-row button{width:auto!important;max-width:90px!important;min-width:37px!important;flex:0 0 auto!important;white-space:nowrap;padding:9px!important;font-size:13px}
+.viewer-find-panel .viewer-find-row #viewerFindGo{max-width:80px!important}
+.viewer-shade.reading-mode .viewer-head{justify-content:flex-end!important}
+.viewer-shade.reading-mode .viewer-top-tools{display:flex!important}
+.viewer-shade.reading-mode .viewer-top-tools #viewerReadSearch{display:none!important}
+.viewer-shade.reading-mode .viewer-top-tools #viewerRead,.viewer-shade.reading-mode .viewer-top-tools #viewerReadEdit{width:0!important;flex:1 1 0!important}
+.editor-settings-panel{background:#151d32!important;padding:16px!important;gap:10px!important;z-index:100}
+.editor-settings-panel h2{font-size:20px;margin:0}.editor-settings-panel h3{font-size:16px;margin:12px 0 6px}
+.editor-settings-panel label{padding:9px 0;border-bottom:1px solid #394663;font-size:14px;gap:8px}
+.editor-settings-panel .editor-settings-main{display:flex;flex-direction:column}
+.editor-settings-panel select{width:min(46%,170px)!important;min-width:110px!important;max-width:46%!important;font-size:13px!important}
+.editor-settings-panel input[type=checkbox]{width:19px;height:19px;flex:0 0 19px}
+</style><style id="v40styles">
+/* Settings: menu em linhas compactas e sem subtítulos */
+#settingsCategories.settings-categories{display:flex!important;flex-direction:column!important;gap:6px!important;margin:10px 0 34px!important;padding-bottom:calc(env(safe-area-inset-bottom) + 130px)!important}
+#settingsCategories .settings-category{display:flex!important;flex-direction:row!important;justify-content:space-between!important;align-items:center!important;min-height:49px!important;width:100%!important;padding:11px 15px!important;gap:8px!important;border-radius:11px!important;text-align:left!important}
+#settingsCategories .settings-category strong{font-size:15px!important}
+#settingsCategories .settings-category>span{position:static!important;margin-left:auto!important}
+#settingsCategories .settings-category small{display:none!important}
+#settingsCategories .settings-fullscreen-row{color:#f3f5ff!important;font-size:15px!important;font-weight:600!important;background:#212e49!important}
+/* Visualizador: modos + busca + ler na mesma linha */
+.viewer-shade:not(.reading-mode) .viewer-controls-row{display:flex!important;gap:6px!important;align-items:stretch!important;min-width:0!important}
+.viewer-shade:not(.reading-mode) .viewer-controls-row .viewer-tabs{display:flex!important;flex:2 1 0!important;width:auto!important;min-width:0!important;gap:5px!important;overflow:hidden!important;order:1!important}
+.viewer-shade:not(.reading-mode) .viewer-controls-row .viewer-top-tools{display:flex!important;flex:2 1 0!important;width:auto!important;min-width:0!important;gap:5px!important;overflow:hidden!important;order:2!important}
+.viewer-shade:not(.reading-mode) .viewer-controls-row button{flex:1 1 0!important;width:0!important;min-width:0!important;padding:8px 3px!important;font-size:clamp(10px,2.9vw,14px)!important;white-space:nowrap!important;min-height:42px!important;border-radius:10px!important;background:#25334f!important;color:#f5f6ff!important;border:1px solid #4e5b76!important}
+.viewer-shade:not(.reading-mode) .viewer-controls-row button.active{background:#625cf7!important;border-color:#9189ff!important}
+.viewer-shade .viewer-tools-dock{display:none;flex-direction:column;gap:3px;border:1px solid #364562;border-radius:11px;padding:3px;background:#17223a;flex-shrink:0}
+.viewer-shade.viewer-editing .viewer-tools-dock{display:flex!important}
+.viewer-shade .viewer-tools-dock .editor-quick-top,.viewer-shade .viewer-tools-dock .editor-quick-bottom{display:flex;gap:4px;margin:0;padding:0;background:transparent!important;min-width:0}
+.viewer-shade .viewer-tools-dock .editor-quick-top:empty,.viewer-shade .viewer-tools-dock .editor-quick-bottom:empty{display:none!important}
+.viewer-shade .viewer-tools-dock button{flex:1 1 0;min-width:0;padding:7px 2px;font-size:clamp(10px,2.7vw,13px);min-height:39px}
+.viewer-shade .viewer-content .editor-quick-bottom,.viewer-shade .viewer-content .editor-quick-top{display:none!important}
+.viewer-shade .viewer-content{min-height:0;flex:1 1 auto}
+.viewer-shade .viewer-notice{display:none!important}
+.viewer-shade .viewer-footer{display:flex!important;gap:6px!important;overflow:hidden!important;min-height:0!important;padding:0!important}
+.viewer-shade .viewer-footer button{flex:1 1 0!important;min-width:0!important;max-width:none!important;font-size:clamp(11px,3vw,14px)!important;background:#283652;border:1px solid #4b5977;border-radius:10px;padding:10px 4px}
+/* Leitura: apenas Sair leitura e Editar texto, sem Fechar */
+.viewer-shade.reading-mode #viewerClose,.viewer-shade.reading-mode .viewer-head,.viewer-shade.reading-mode .viewer-tabs{display:none!important}
+.viewer-shade.reading-mode .viewer-controls-row{display:flex!important;min-height:44px;flex-shrink:0}
+.viewer-shade.reading-mode .viewer-top-tools{display:flex!important;width:100%!important;gap:7px!important;min-width:0!important}
+.viewer-shade.reading-mode .viewer-top-tools #viewerRead,.viewer-shade.reading-mode .viewer-top-tools #viewerReadEdit{flex:1 1 0!important;width:0!important;min-width:0!important;background:#283652!important;border:1px solid #50607e!important;border-radius:10px!important;min-height:43px}
+.viewer-shade.reading-mode .viewer-tools-dock{display:none!important}
+.viewer-shade.reading-mode.viewer-editing .viewer-tools-dock{display:flex!important}
+.viewer-shade.reading-mode .viewer-footer{display:none!important}
+.viewer-shade .viewer-find-panel .viewer-find-row{display:grid!important;grid-template-columns:minmax(0,1fr) auto auto!important}
+</style>
+
+<style id="fe42-fixes">
+/* 4 equally spaced controls in regular viewer, 2 full-width in edit/read. */
+.viewer-shade.fe41-main .viewer-controls-row{display:flex!important;width:100%!important;gap:0!important}
+.viewer-shade.fe41-main .viewer-top-tools{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px!important;width:100%!important;flex:1 1 auto!important;min-width:0!important;order:0!important}
+.viewer-shade.fe41-main .viewer-top-tools button{display:flex!important;width:100%!important;min-width:0!important;max-width:100%!important;flex:none!important;min-height:44px!important;font-size:clamp(11px,2.7vw,15px)!important}
+.viewer-shade.fe41-main .viewer-top-tools button.hidden{display:none!important}
+.viewer-shade.fe41-edit .viewer-top-tools,.viewer-shade.fe41-read .viewer-top-tools{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;width:100%!important;flex:1 1 auto!important;min-width:0!important;order:0!important}
+.viewer-shade.fe41-edit .viewer-top-tools button,.viewer-shade.fe41-read .viewer-top-tools button{width:100%!important;max-width:100%!important;min-width:0!important;flex:none!important}
+.viewer-shade.fe41-edit .viewer-top-tools button.hidden,.viewer-shade.fe41-read .viewer-top-tools button.hidden{display:none!important}
+.viewer-shade.fe41-edit .viewer-tools-dock button{flex:1 1 0!important;min-width:0!important}
+#settingsCategories.settings-categories.hidden{display:none!important}
+#settingsDetails{display:none!important;padding-bottom:calc(120px + env(safe-area-inset-bottom))}
+#settingsDetails.active{display:block!important}
+#settingsDetails .settings-section.hidden{display:none!important}
+#settingsDetails .settings-section:not(.hidden){display:block!important}
+#settingsCategories .settings-fullscreen-row{margin-top:0!important}
+</style>
+<style id="fe44-remove-phantom-tabs">
+/* Barra antiga vazia ocupava 43px apesar de ocultada: conflito de CSS. */
+#modalRoot .viewer-shade .viewer-controls-row #viewerTabs{
+  display:none!important;visibility:hidden!important;
+  height:0!important;min-height:0!important;max-height:0!important;
+  padding:0!important;margin:0!important;border:0!important;
+}
+#modalRoot .viewer-shade .viewer-controls-row{height:auto!important;min-height:0!important;}
+</style>
+
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+<meta name="application-name" content="Files Explorer">
+<meta name="apple-mobile-web-app-title" content="Files Explorer">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="description" content="Gerenciador de arquivos e editor de texto e código para celular.">
+</head>
+<body>
+<div id="app">
+<div class="app-title-row"><div style="font-size:13px;font-weight:750;letter-spacing:.8px;color:#b8b7ff">📁 FILES EXPLORER <span style="color:#9ba9c5;font-weight:500">v4.4</span></div><button id="topActions" class="top-settings" type="button" title="Menu da pasta" aria-label="Menu de ações da pasta">⋮</button><button id="topSettings" class="top-settings" aria-label="Abrir configurações">⚙</button></div>
+
+<div id="storageBadge" class="storage-badge" aria-live="polite">💾 Espaço interno do aplicativo</div>
+<label class="search"><span>⌕</span><input id="search" placeholder="Pesquisar nomes ou .html, .pdf, .json..." autocomplete="off"></label>
+<div id="startFolder" class="start-folder"><button class="primary" id="startChoose">📂 Escolher pasta do celular</button><p class="muted">Selecione uma pasta para começar a gerenciar seus arquivos.</p></div>
+<div id="settingsPage" class="hidden"><div class="section-head"><h2>⚙ Configurações</h2></div><button class="secondary" id="settingsFullscreen" type="button" style="width:100%;margin:6px 0 12px;min-height:46px">⛶ Alternar tela cheia</button>
+<div class="settings-panel"><h2>👁️ Exibição</h2><p class="muted" style="margin:0 0 8px">Escolha quais elementos aparecem na tela. As alterações são salvas automaticamente.</p>
+<label class="setting-line"><span>Mostrar pesquisa</span><input type="checkbox" id="showSearch" checked></label>
+<label class="setting-line"><span>Mostrar nome da pasta e caminho</span><input type="checkbox" id="showFolderTitle" checked></label>
+<label class="setting-line"><span>Mostrar resumo da pasta (arquivos, subpastas e tamanho)</span><input type="checkbox" id="showFolderCount" checked></label>
+<label class="setting-line"><span>Mostrar indicador da pasta real</span><input type="checkbox" id="showStorageBadge" checked></label>
+<label class="setting-line"><span>Mostrar caminho de navegação (pastas / subpastas)</span><input type="checkbox" id="showBreadcrumb" checked></label>
+
+
+<label class="setting-line"><span>Mostrar botão Ordenar</span><input type="checkbox" id="showSort" checked></label>
+<label class="setting-line"><span>Mostrar botão Selecionar</span><input type="checkbox" id="showSelect" checked></label>
+<label class="setting-line"><span>Mostrar botão Mais ações (⋯)</span><input type="checkbox" id="showBatch" checked></label>
+<label class="setting-line"><span>Tamanho dos cartões</span><select id="densityPref" class="form-input" style="width:auto;margin:0;padding:10px"><option value="compact">Compacto</option><option value="normal">Normal</option><option value="large">Grande</option></select></label>
+<label class="setting-line"><span>Visualização dos arquivos</span><select id="layoutPref" class="form-input" style="width:auto;margin:0;padding:10px"><option value="list">Lista</option><option value="grid">Grade</option></select></label>
+<label class="setting-line"><span>Mostrar botão Atualizar junto ao histórico</span><input type="checkbox" id="showRefreshTop" checked></label>
+<label class="setting-line hidden"><span>Abrir o aplicativo em</span><select id="startupPref" class="form-input" style="width:auto;margin:0;padding:10px"><option value="home">Início</option><option value="last">Última pasta (armazenamento interno)</option><option value="favorites">Favoritos</option></select></label><label class="setting-line"><span>Pesquisa nas subpastas</span><input type="checkbox" id="recursivePref"></label>
+<p class="muted">Na pesquisa em subpastas, o aplicativo procura nomes de arquivos e pastas. Não lê conteúdo. Em pastas reais, a varredura pode levar tempo.</p>
+<h2 class="settings-group-heading">🧭 Navegação</h2><label class="setting-line"><span>Mostrar barra de navegação (Voltar, Avançar, Atualizar, Favoritos)</span><input type="checkbox" id="showHistoryRow" checked></label><label class="setting-line"><span>Mostrar botão Voltar no histórico</span><input type="checkbox" id="showHistoryBack" checked></label><label class="setting-line"><span>Mostrar botão Avançar no histórico</span><input type="checkbox" id="showHistoryForward" checked></label><label class="setting-line"><span>Mostrar botão Favoritos no histórico</span><input type="checkbox" id="showFavoritesTop" checked></label><h2 class="settings-group-heading">✏️ Editor e atalhos</h2><label class="setting-line"><span>Mostrar nome e extensão no editor</span><input type="checkbox" id="showEditorIdentity" checked></label><label class="setting-line"><span>Mostrar contador de linhas, palavras e caracteres</span><input type="checkbox" id="showEditorStats" checked></label><label class="setting-line"><span>Quebrar linhas automaticamente</span><input type="checkbox" id="editorWrapPref"></label><label class="setting-line"><span>Tamanho da fonte do editor</span><select id="editorFontPref" class="form-input" style="width:auto;margin:0;padding:9px"><option value="12">12 px</option><option value="14">14 px</option><option value="16">16 px</option><option value="18">18 px</option><option value="20">20 px</option><option value="24">24 px</option></select></label><h3 class="settings-group-heading">Botões do editor</h3><p class="muted">Escolha quais ferramentas aparecem ao editar arquivos.</p><div id="editorToolbarSettings"></div><label class="setting-line"><span>Mostrar / ocultar barra inferior (7 botões)</span><input type="checkbox" id="showBottomNav"></label>
+<p class="muted">Quando a barra estiver oculta, use os botões superiores de ações (⋮) e configurações (⚙). As escolhas ficam salvas neste navegador.</p>
+<div class="settings-actions hidden"><button id="settingsHome" class="secondary">⌂ Início</button><button id="settingsFolders" class="secondary">▤ Pastas</button><button id="settingsRecent" class="secondary">◷ Recentes</button><button id="settingsAdd" class="secondary">＋ Criar / adicionar</button></div>
+<h2 style="margin-top:20px">Ferramentas e relatórios</h2><div class="settings-actions"><button id="settingsManual" class="secondary">📖 Manual de instruções</button><button id="settingsStats" class="secondary">📊 Estatísticas</button><button id="settingsHistory" class="secondary">📜 Histórico</button></div><h2 style="margin-top:20px">Barra inferior — personalizar</h2>
+<p class="muted">Escolha o atalho de cada uma das sete posições. Todas as sete posições são livres, inclusive a posição 4. Você pode repetir funções ou deixar posições vazias.</p><div id="dockSlotSettings"></div><div id="navToggles" class="hidden"></div><h2 style="margin-top:20px">Ordem dos botões</h2><p class="muted">Use ↑ e ↓ para mudar a ordem. As escolhas são salvas automaticamente.</p><div id="toolbarOrderSettings"></div><div id="historyOrderSettings"></div>
+<p class="muted">Você pode mostrar ou ocultar cada atalho da barra. O botão ⚙ superior sempre estará disponível.</p></div><div id="customMenusPanel" class="settings-section hidden"><h2>🧩 Menus e seleção</h2><p class="muted">Escolha os comandos exibidos no menu dos arquivos e das pastas. Os comandos ocultos continuam acessíveis por outras ferramentas, quando disponíveis.</p><div id="actionVisibilitySettings"></div><h3>↕ Ordem dos comandos</h3><p class="muted">Use ↑ e ↓ para escolher quais ações aparecem primeiro nos menus.</p><div id="actionOrderSettings"></div><label class="setting-line"><span>Destacar modo de seleção</span><input type="checkbox" id="selectionProminent" checked></label></div><div id="personalPrefsPanel" class="settings-section hidden"><h2>💾 Configurações pessoais</h2><p class="muted">Salvar uma cópia da aparência atual ou restaurar um perfil. A configuração de fábrica não apaga arquivos.</p><button id="savePersonalPrefs" class="secondary" type="button">💾 Salvar minha configuração</button><button id="restorePersonalPrefs" class="secondary" type="button">↩ Aplicar minha configuração salva</button><button id="restoreFactoryPrefs" class="secondary" type="button">⚙ Restaurar configuração de fábrica</button><div id="personalPrefsStatus" class="muted" style="margin:12px 0"></div></div><div class="settings-folder-switch"><h2>📂 Pasta do celular</h2><div id="deviceStatus" class="muted" aria-live="polite">Nenhuma pasta conectada.</div><button id="openDeviceFolder" class="secondary" type="button">🔄 Trocar pasta selecionada</button></div>
+<div class="overview hidden"><div class="overview-top"><strong>☁ &nbsp;Meu armazenamento</strong><small id="usagePercent">0 arquivos</small></div><div class="usage"><span id="usageBar" style="width:0%"></span></div><div class="row"><small id="usageText">0 B armazenados neste app</small><small>Local & privado</small></div></div>
+<div class="section-head hidden"><h2>Categorias</h2><span class="muted">Acesso rápido</span></div>
+<div class="tiles hidden" id="categories"><button class="tile" data-cat="image"><i>🖼️</i>Imagens</button><button class="tile" data-cat="video"><i>🎬</i>Vídeos</button><button class="tile" data-cat="audio"><i>🎵</i>Áudio</button><button class="tile" data-cat="document"><i>📄</i>Docs</button></div>
+<div class="settings-note"><b>Sobre este aplicativo</b><p>Os arquivos de uma pasta conectada são alterados diretamente no aparelho, com sua permissão. O acesso direto exige um navegador com suporte à seleção de pastas e permissão de escrita.</p><p>O aplicativo funciona em um arquivo HTML único. A instalação completa como PWA pode exigir arquivos separados e HTTPS.</p></div></div>
+<div id="browserPage"><div class="section-head"><h2 id="sectionTitle">Todos os arquivos</h2><div class="toolbar"><button id="sortBtn" aria-label="Ordenar">⇅</button><button id="selectBtn" aria-label="Ativar seleção">☑</button><button id="batchBtn" aria-label="Ações dos itens selecionados" title="Ações">⋯</button></div></div>
+<div class="history-row" id="historyRow"><button id="historyBack" type="button" aria-label="Voltar para pasta anterior">◀ Voltar</button><button id="historyForward" type="button" aria-label="Avançar para próxima pasta">Avançar ▶</button><button id="refreshTop" type="button">⟳ Atualizar</button><button id="favoritesBtn" type="button">★ Favoritos</button><span id="searchProgress" class="muted" aria-live="polite"></span></div><div class="crumb" id="breadcrumb"></div><div id="folderCount" class="storage-badge" aria-live="polite"></div><div id="clipboardPanel" class="quick-panel hidden" aria-live="polite"></div><div class="list" id="fileList"></div></div>
+</div>
+<div id="selectionStatus" class="selection-status hidden" aria-live="polite"></div><div id="selectionActions" class="quick-panel hidden" aria-live="polite"></div>
+<nav id="bottomNav"><button id="homeNav" class="on"><b>⌂</b>Pasta</button><button id="foldersNav"><b>▤</b>Raiz</button><button id="searchNav"><b>⌕</b>Buscar</button><button id="addBtn" class="add" aria-label="Criar ou adicionar">+</button><button id="recentNav"><b>☑</b>Seleção</button><button id="toolsNav"><b>⋯</b>Ações</button><button id="settingsNav"><b>⚙</b>Config.</button></nav>
+<input type="file" id="filePicker" multiple hidden><input type="file" id="folderPicker" webkitdirectory directory multiple hidden><input type="file" id="externalUpload" multiple hidden>
+<div id="modalRoot"></div><div id="toast" class="toast hidden"></div>
+<style>
+/* v3.6: editor compacto e responsivo */
+.editor-sheet .editor-header h2{font-size:16px}
+.editor-quick-top,.editor-quick-bottom,.editor-actions{display:flex;flex-flow:row nowrap;gap:4px;align-items:stretch;min-width:0;margin:4px 0}
+.editor-quick-top:empty,.editor-quick-bottom:empty{display:none}
+.editor-quick-top button,.editor-quick-bottom button,.editor-actions button{flex:1 1 0;min-width:0;width:auto!important;padding:7px 3px!important;font-size:clamp(11px,2.8vw,14px)!important;min-height:40px!important;white-space:nowrap;margin:0!important}
+.editor-quick-top button,.editor-quick-bottom button{background:#303b59;border:1px solid #536184;border-radius:9px;color:#eef2ff}
+.editor-sheet .edit-tools{display:none!important}.editor-sheet .edit-stat-counter{margin:0!important}
+.viewer-shade .viewer-tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin;gap:4px}
+.viewer-shade .viewer-tabs button{flex:1 0 auto;font-size:12px;padding:8px 6px;white-space:nowrap}
+.viewer-shade .viewer-top-tools:empty{display:none}
+.viewer-shade .viewer-footer{flex-wrap:nowrap;overflow-x:auto}.viewer-shade .viewer-footer button{min-width:0;white-space:nowrap;font-size:12px;padding:9px 5px}
+.viewer-shade .edit-tools{display:none!important}
+.viewer-shade .viewer-content .code-edit-wrap{flex:1;min-height:0}
+.viewer-shade .viewer-content .editor-quick-top,.viewer-shade .viewer-content .editor-quick-bottom{flex:0 0 auto}
+.viewer-shade.reading-mode .viewer-head{justify-content:space-between}
+.viewer-shade.reading-mode .viewer-head .read-toggle{display:inline-block!important;min-width:0;white-space:nowrap}
+.viewer-shade.reading-mode .viewer-head #viewerReadSearch{display:none!important}
+.viewer-shade.reading-mode .viewer-head #viewerReadEdit{font-size:12px}
+.viewer-shade.reading-mode .viewer-top-tools{display:flex}
+.viewer-shade.reading-mode .viewer-head h2{display:none}
+.viewer-shade.reading-mode .viewer-content .editor-quick-top,.viewer-shade.reading-mode .viewer-content .editor-quick-bottom,.viewer-shade.reading-mode .viewer-content .edit-stat-counter{display:none!important}
+.editor-shade>.sheet,.viewer-shade>.sheet{position:relative}.editor-settings-panel{position:absolute;inset:0;z-index:80;background:#12192deF;overflow-y:auto;padding:22px;display:flex;flex-direction:column;gap:12px}
+.editor-settings-panel label{display:flex;gap:8px;align-items:center;justify-content:space-between;min-height:42px}
+.editor-settings-panel select{max-width:55%;min-width:130px}
+</style>
+<style>
+/* v4.4: estados distintos — visualizar, editar e leitura, sem barras redundantes */
+.viewer-shade .viewer-tabs{display:none!important}
+.viewer-shade .viewer-controls-row{display:flex!important;flex:0 0 auto!important;width:100%!important}
+.viewer-shade .viewer-top-tools{display:flex!important;width:100%!important;gap:7px!important}
+.viewer-shade .viewer-top-tools button{flex:1 1 0!important;min-width:0!important;width:0!important;min-height:43px!important;display:inline-flex!important;align-items:center;justify-content:center;border-radius:11px!important;background:#27324e!important;border:1px solid #4b5978!important;color:#f7f8ff!important;font-size:clamp(12px,3vw,15px)!important;padding:7px 4px!important}
+.viewer-shade.fe41-main .viewer-head{display:flex!important;align-items:center!important}
+.viewer-shade.fe41-main .viewer-head h2{min-width:0;overflow-x:auto!important;white-space:nowrap!important;scrollbar-width:thin;flex:1 1 0;user-select:text}
+.viewer-shade.fe41-main .viewer-controls-row #fe41Save{display:inline-flex!important}
+.viewer-shade.fe41-edit .viewer-head,.viewer-shade.fe41-read .viewer-head{display:none!important}
+.viewer-shade.fe41-edit #fe41Save,.viewer-shade.fe41-read #fe41Save{display:none!important}
+.viewer-shade.fe41-read #viewerRead{order:0!important}.viewer-shade.fe41-read #viewerReadEdit{order:1!important}
+.viewer-shade.fe41-edit .viewer-controls-row,.viewer-shade.fe41-read .viewer-controls-row{order:0!important}
+.viewer-shade.fe41-edit .viewer-tools-dock{display:flex!important;order:1!important;gap:3px!important}
+.viewer-shade.fe41-main .viewer-tools-dock,.viewer-shade.fe41-read .viewer-tools-dock{display:none!important}
+.viewer-shade .viewer-content{order:2!important;min-height:0!important;flex:1 1 0!important}
+.viewer-shade .viewer-notice,.viewer-shade .viewer-footer{display:none!important}
+.viewer-shade .viewer-content .code-edit-wrap{min-height:0!important}
+.viewer-shade.fe41-edit .viewer-tools-dock .editor-quick-top,.viewer-shade.fe41-edit .viewer-tools-dock .editor-quick-bottom{display:flex!important}
+.viewer-shade .fe41-save-menu{display:flex;order:1!important;gap:7px;flex-wrap:wrap;padding:6px;border:1px solid #4c5976;border-radius:12px;background:#1b2943}
+.viewer-shade .fe41-save-menu.hidden{display:none!important}
+.viewer-shade .fe41-save-menu button{flex:1 1 100px;min-height:42px;padding:7px;border-radius:9px;border:1px solid #566684;color:#fff;background:#2c3a59;font-size:13px}
+.viewer-shade .viewer-tools-dock button{min-height:36px!important}
+</style>
+<style id="fe43-viewer-repair">
+/* Corrige conflito entre estilos de versoes anteriores: grid de verdade. */
+#modalRoot .viewer-shade.fe41-main .viewer-controls-row{width:100%!important;display:block!important;min-width:0!important}
+#modalRoot .viewer-shade.fe41-main .viewer-controls-row .viewer-top-tools{
+  display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  flex:none!important;overflow:visible!important;gap:6px!important;
+}
+#modalRoot .viewer-shade.fe41-main .viewer-controls-row .viewer-top-tools>button{
+  display:flex!important;position:static!important;width:100%!important;
+  min-width:0!important;max-width:none!important;flex:none!important;
+  margin:0!important;padding:7px 2px!important;
+  white-space:nowrap!important;justify-content:center!important;
+  font-size:clamp(11px,2.8vw,15px)!important;
+}
+#modalRoot .viewer-shade.fe41-main .viewer-controls-row .viewer-top-tools>button.hidden{display:none!important}
+#modalRoot .viewer-shade.fe41-edit .viewer-controls-row,
+#modalRoot .viewer-shade.fe41-read .viewer-controls-row{width:100%!important;display:block!important}
+#modalRoot .viewer-shade.fe41-edit .viewer-controls-row .viewer-top-tools,
+#modalRoot .viewer-shade.fe41-read .viewer-controls-row .viewer-top-tools{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ width:100%!important;min-width:0!important;gap:7px!important;flex:none!important;
+}
+#modalRoot .viewer-shade.fe41-edit .viewer-controls-row .viewer-top-tools>button,
+#modalRoot .viewer-shade.fe41-read .viewer-controls-row .viewer-top-tools>button{
+ width:100%!important;min-width:0!important;max-width:none!important;flex:none!important;
+}
+#modalRoot .viewer-shade.fe41-edit .viewer-controls-row .viewer-top-tools>button.hidden,
+#modalRoot .viewer-shade.fe41-read .viewer-controls-row .viewer-top-tools>button.hidden{display:none!important}
+/* Nome completo acessivel pelo deslize horizontal, sem reticencias falsas. */
+#modalRoot .viewer-shade .viewer-head{min-width:0!important;max-width:100%!important}
+#modalRoot .viewer-shade .viewer-head h2#viewerTitle{
+ display:block!important;overflow-x:auto!important;overflow-y:hidden!important;
+ text-overflow:clip!important;white-space:nowrap!important;min-width:0!important;
+ flex:1 1 0!important;max-width:100%!important;touch-action:pan-x;
+ overscroll-behavior-x:contain;scrollbar-width:thin!important;
+}
+#modalRoot .viewer-shade .viewer-head #viewerClose{flex:0 0 auto!important}
+</style>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id);let db,items=[],folder=null,category=null,view='home',query='',sort='date:desc',selectMode=false,selected=new Set(),previewUrl=null,deviceRoot=null,deviceStack=[],deviceEntries=[],deviceMode=false,settingsOpen=false,clipboard=null,history=[],historyIndex=-1,historyMute=false,searchSerial=0,recursiveMatches=null,recursiveSearchRunning=false;
+const DEFAULT_PREFS={historyRow:true,folderCount:true,historyBack:true,historyForward:true,favoritesTop:true,editorIdentity:true,search:true,folderTitle:true,storageBadge:true,breadcrumb:true,back:true,refresh:true,sort:true,select:true,batch:true,bottomNav:true,nav_home:true,nav_folders:true,nav_search:true,nav_add:true,nav_recent:true,nav_tools:true,nav_settings:true,density:"normal",layout:"list",recursive:false,refreshTop:true,toolbarOrder:["sortBtn","selectBtn","batchBtn"],historyOrder:["historyBack","historyForward","refreshTop","favoritesBtn"],startup:"home",dockSlots:["home","folders","search","recent","favorites","historyBack","historyForward"],actionVisibility:{},selectionProminent:false,selectionStatusVisible:true,selectionQuickVisible:{copy:true,cut:true,move:true,delete:true,exit:true,invert:false},menuFilters:false,menuInvert:false,editorStats:true,editorWrap:false,editorFontSize:16,editorToolVisibility:{},actionOrder:["open","info","copy","move","paste","rename","favorite","download","select","delete"]};
+let prefs={...DEFAULT_PREFS};try{prefs={...prefs,...JSON.parse(localStorage.getItem('filesExplorerPrefs')||'{}')}}catch{}
+try{if(localStorage.getItem('filesExplorerV23BottomBar')!=='1'){prefs.bottomNav=true;localStorage.setItem('filesExplorerV23BottomBar','1');localStorage.setItem('filesExplorerPrefs',JSON.stringify(prefs))}}catch{prefs.bottomNav=true}
+let filterExt='',filterMin=0,filterMax=0,intervalStart=null,intervalPending=false,visibleSelectionKeys=[];
+let favorites=new Set();try{favorites=new Set(JSON.parse(localStorage.getItem('filesExplorerFavorites')||'[]'))}catch{};
+const favKey=x=>deviceMode?'real:'+deviceRoot?.name+'/'+[...deviceStack.map(h=>h.name),x.name].join('/'): 'interno:'+x.id;
+function saveFavorites(){try{localStorage.setItem('filesExplorerFavorites',JSON.stringify([...favorites]))}catch{}}
+function isFav(x){return favorites.has(favKey(x))}
+function toggleFav(x){const key=favKey(x);if(favorites.has(key))favorites.delete(key);else favorites.add(key);saveFavorites();notify(favorites.has(key)?'Adicionado aos favoritos':'Removido dos favoritos');render()}
+function fileExt(x){return x.kind==='folder'||x.kind==='directory'?'':(x.name.includes('.')?x.name.split('.').pop().toLocaleLowerCase():'')}
+function matchesQuery(x){const q=query.trim().toLocaleLowerCase();if(!q)return true;const n=x.name.toLocaleLowerCase();return q.startsWith('.')?fileExt(x)===q.slice(1):n.includes(q)}
+function passesAdvancedFilters(x){if(!filterExt&&!filterMin&&!filterMax)return true;if(x.kind!=='file')return false;if(filterExt&&fileExt(x)!==filterExt)return false;const sz=x.size||0;return (!filterMin||sz>=filterMin)&&(!filterMax||sz<=filterMax)}
+function filterDialog(){const value=filterExt||'';show('<h2>🔎 Filtros combinados</h2><p class="muted">Combine nome (na barra de busca), extensão e tamanho. Tamanho em MB. Deixe em branco para ignorar.</p><label>Extensão (ex: html)<input id="filterExt" style="width:100%;padding:12px;margin:8px 0;background:#202b46;color:white;border:1px solid #576787;border-radius:9px" value="'+esc(value)+'" placeholder="html"></label><label>Tamanho mínimo em MB<input id="filterMin" type="number" min="0" step="0.01" style="width:100%;padding:12px;margin:8px 0;background:#202b46;color:white;border:1px solid #576787;border-radius:9px" value="'+(filterMin?filterMin/1048576:'')+'"></label><label>Tamanho máximo em MB<input id="filterMax" type="number" min="0" step="0.01" style="width:100%;padding:12px;margin:8px 0;background:#202b46;color:white;border:1px solid #576787;border-radius:9px" value="'+(filterMax?filterMax/1048576:'')+'"></label><button id="filterApply" class="primary">Aplicar filtros</button><button id="filterReset" class="secondary">Limpar filtros</button>');$('filterApply').onclick=()=>{const a=$('filterExt').value.trim().toLowerCase().replace(/^\./,''),b=$('filterMin').value,c=$('filterMax').value;const min=b===''?0:Number(b)*1048576,max=c===''?0:Number(c)*1048576;if(!/^[a-z0-9_-]*$/.test(a)||!Number.isFinite(min)||!Number.isFinite(max)||min<0||max<0||(max&&min>max))return notify('Confira extensão e tamanhos');filterExt=a;filterMin=min;filterMax=max;close();triggerSearch();notify('Filtros aplicados')};$('filterReset').onclick=()=>{filterExt='';filterMin=filterMax=0;close();triggerSearch();notify('Filtros removidos')}}
+function beginInterval(){const chosen=getSelection();if(chosen.length!==1)return notify('Selecione exatamente um item inicial');intervalStart=deviceMode?chosen[0].name:chosen[0].id;intervalPending=true;selectMode=true;close();render();notify('Agora toque no último item do intervalo')}
+function selectIntervalEnd(key){const a=visibleSelectionKeys.indexOf(intervalStart),b=visibleSelectionKeys.indexOf(key);if(a<0||b<0){intervalPending=false;return notify('Intervalo fora da lista atual')};for(let i=Math.min(a,b);i<=Math.max(a,b);i++)selected.add(visibleSelectionKeys[i]);intervalPending=false;intervalStart=null;render();notify('Intervalo selecionado: '+selected.size+' itens')}
+function selectedMetrics(){let n=0,bytes=0,folders=0;for(const x of getSelection()){if(x.kind==='folder'||x.kind==='directory')folders++;else{n++;bytes+=x.size||0}}return {n,bytes,folders}}
+function advancedCompare(a,b){const field=sort.split(':')[0],rev=sort.endsWith(':desc')?-1:1;let v=0;if(field==='name')v=a.name.localeCompare(b.name,'pt-BR');else if(field==='size')v=(a.size||0)-(b.size||0);else if(field==='type')v=fileExt(a).localeCompare(fileExt(b),'pt-BR')||a.name.localeCompare(b.name,'pt-BR');else v=(a.created||0)-(b.created||0);return v*rev}
+function advancedSort(){actions('Ordenação avançada',[['Nome: A → Z','🔤',()=>setSort('name:asc')],['Nome: Z → A','🔤',()=>setSort('name:desc')],['Menor tamanho','▥',()=>setSort('size:asc')],['Maior tamanho','▥',()=>setSort('size:desc')],['Extensão: A → Z','📄',()=>setSort('type:asc')],['Extensão: Z → A','📄',()=>setSort('type:desc')],['Mais antigos','◷',()=>setSort('date:asc')],['Mais recentes','◷',()=>setSort('date:desc')]])}
+function setSort(s){sort=s;close();render()}
+function selectByType(){const entries=deviceMode?deviceEntries:items.filter(x=>x.parent===folder);const types=[...new Set(entries.filter(x=>x.kind==='file').map(fileExt))].sort();if(!types.length)return notify('Nenhum arquivo na pasta atual');actions('Selecionar por extensão',types.map(ext=>['.'+(ext||'(sem extensão)'),'☑',()=>{selectMode=true;selected.clear();for(const x of entries)if(x.kind==='file'&&fileExt(x)===ext)selected.add(deviceMode?x.name:x.id);close();render()}]));}
+function openFavorites(){const root=$('modalRoot');const found=items.filter(x=>favorites.has('interno:'+x.id));const realKeys=[...favorites].filter(k=>k.startsWith('real:'));let html='<h2>★ Favoritos</h2><p class="muted">Toque em um favorito interno para abrir. Favoritos de pastas reais são atalhos de referência e podem precisar que você reconecte a pasta.</p><div id="favEntries"></div><button class="secondary" id="favClose">Fechar</button>';show(html);const host=$('favEntries');for(const x of found){host.append(action((x.kind==='folder'?'📁 ':'📄 ')+x.name,'›',()=>{close();deviceMode=false;if(x.kind==='folder')navTo('home',x.id);else preview(x)}))}for(const k of realKeys){host.append(action('📱 '+k.slice(5),'★',()=>notify('Reconecte a pasta correspondente para abrir o favorito')))}if(!found.length&&!realKeys.length)host.textContent='Nenhum favorito salvo.';$('favClose').onclick=close}
+// Histórico local de operações: somente metadados, sem ler o conteúdo.
+const OPLOG_KEY='filesExplorerOperationLogV20';
+let operationLog=[];
+try{const data=JSON.parse(localStorage.getItem(OPLOG_KEY)||'[]');if(Array.isArray(data))operationLog=data.slice(0,250)}catch{}
+function logOperation(tipo,detalhes){
+ operationLog.unshift({when:new Date().toISOString(),tipo,detalhes:String(detalhes||'').slice(0,280),area:deviceMode?'Pasta real':'Espaço interno'});
+ operationLog=operationLog.slice(0,250);
+ try{localStorage.setItem(OPLOG_KEY,JSON.stringify(operationLog))}catch{}
+}
+function showOperationHistory(){
+ show('<h2>📜 Histórico de operações</h2><p class="muted">Últimos 250 eventos registrados neste navegador a partir da v2.0. Não é uma lixeira e não permite desfazer.</p><div id="operationHistory"></div><button id="exportOperationHistory" class="secondary">⬇️ Exportar histórico (.txt)</button><button id="clearOperationHistory" class="secondary">🗑️ Limpar histórico</button><button id="closeOperationHistory" class="secondary">Fechar</button>');
+ const host=$('operationHistory');host.style.maxHeight='48vh';host.style.overflowY='auto';
+ if(!operationLog.length)host.textContent='Nenhuma operação registrada nesta versão.';
+ for(const row of operationLog){const el=document.createElement('div');el.className='setting-line';el.style.display='block';const time=new Date(row.when);el.textContent=(isNaN(time)?row.when:time.toLocaleString('pt-BR'))+' · '+row.tipo+' · '+row.area+' — '+row.detalhes;host.append(el)}
+ $('closeOperationHistory').onclick=close;
+ $('clearOperationHistory').onclick=()=>{if(!confirm('Limpar apenas o histórico registrado? Os arquivos não serão afetados.'))return;operationLog=[];try{localStorage.removeItem(OPLOG_KEY)}catch{}showOperationHistory()};
+ $('exportOperationHistory').onclick=()=>{const lines=['FILES EXPLORER v2.0 · HISTÓRICO','',...operationLog.map(x=>x.when+' | '+x.area+' | '+x.tipo+' | '+x.detalhes)];const a=document.createElement('a'),url=URL.createObjectURL(new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'}));a.href=url;a.download='historico_files_explorer.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000)};
+}
+function selectSearchResults(){
+ if(!query.trim()&&!filterExt&&!filterMin&&!filterMax){notify('Primeiro faça uma pesquisa ou aplique um filtro');return}
+ if(deviceMode&&recursiveSearchRunning){notify('Aguarde a pesquisa terminar');return}
+ if(deviceMode&&prefs.recursive&&recursiveMatches){notify('Na pasta real, seleção em lote funciona no nível atual. Abra a subpasta desejada para selecionar.');return}
+ const keys=visibleSelectionKeys.filter(v=>v!=null);
+ if(!keys.length){notify('Nenhum resultado para selecionar');return}
+ selected=new Set(keys);selectMode=true;render();notify(keys.length+' resultado(s) selecionado(s)')
+}
+function showFileStatistics(){
+ const rows=deviceMode?deviceEntries:items;
+ const files=rows.filter(x=>x.kind==='file');const dirs=rows.filter(x=>x.kind==='folder'||x.kind==='directory');
+ const groups=new Map();let total=0;
+ files.forEach(x=>{const size=x.size||0,ext=fileExt(x).toUpperCase()||'SEM EXTENSÃO';total+=size;const g=groups.get(ext)||{count:0,size:0};g.count++;g.size+=size;groups.set(ext,g)});
+ const top=[...files].sort((a,b)=>(b.size||0)-(a.size||0)).slice(0,15);
+ const scope=deviceMode?'Somente pasta real aberta (não percorre subpastas)':'Todo o espaço interno do aplicativo, incluindo subpastas';
+ show('<h2>📊 Estatísticas</h2><p class="muted">'+esc(scope)+'</p><div id="statisticsSummary" class="storage-badge"></div><h3>Por extensão</h3><div id="statisticsTypes"></div><h3>15 maiores arquivos</h3><div id="statisticsLargest"></div><button id="statisticsClose" class="secondary">Fechar</button>');
+ $('statisticsSummary').textContent=files.length+' arquivo(s) · '+dirs.length+' pasta(s) · '+fmt(total);
+ const byType=[...groups].sort((a,b)=>b[1].size-a[1].size);
+ const typeHost=$('statisticsTypes');if(!byType.length)typeHost.textContent='Nenhum arquivo.';
+ for(const [ext,g] of byType){const el=document.createElement('div');el.className='setting-line';const name=document.createElement('span');name.textContent=ext+' · '+g.count+' arquivo(s)';const size=document.createElement('strong');size.textContent=fmt(g.size);el.append(name,size);typeHost.append(el)}
+ const big=$('statisticsLargest');for(const x of top){const el=document.createElement('div');el.className='setting-line';const name=document.createElement('span');name.textContent=x.name;name.style.overflowWrap='anywhere';const size=document.createElement('strong');size.textContent=fmt(x.size);el.append(name,size);big.append(el)}
+ $('statisticsClose').onclick=close;
+}
+const navChoices=[['home','Pasta atual'],['folders','Pasta raiz'],['search','Pesquisa'],['add','Criar / adicionar'],['recent','Seleção'],['tools','Ações'],['settings','Config.']];
+function drawQuickPanels(){
+ const c=$('clipboardPanel'),a=$('selectionActions');if(!c||!a)return;
+ c.replaceChildren();a.replaceChildren();
+ const button=(parent,label,fn,warning=false)=>{const b=document.createElement('button');b.type='button';b.textContent=label;if(warning)b.className='warn';b.onclick=fn;parent.append(b)};
+ const clipReady=clipboard&&clipboard.device===deviceMode;
+ c.classList.toggle('hidden',settingsOpen||!clipReady);
+ if(clipReady){const text=document.createElement('div');text.className='quick-label';text.textContent=(clipboard.mode==='move'?'📦 Mover':'📋 Copiar')+' · '+clipboard.entries.length+' item(ns) na área de transferência';c.append(text);button(c,'📥 Colar aqui',pasteClipboard);button(c,'✕ Cancelar',()=>{clipboard=null;drawQuickPanels();notify('Transferência cancelada')});}
+ const n=getSelection().length;
+ const visibility={...DEFAULT_PREFS.selectionQuickVisible,...(prefs.selectionQuickVisible||{})};
+ a.classList.toggle('hidden',settingsOpen||!selectMode);
+ if(selectMode){
+  if(visibility.invert)button(a,'⇄ Inverter',invertSelection);
+  if(n){if(visibility.copy)button(a,'📋 Copiar',()=>stageClipboard('copy',getSelection()));
+   if(visibility.cut)button(a,'✂ Recortar',()=>stageClipboard('move',getSelection()));
+   if(visibility.move)button(a,'📦 Mover',()=>stageClipboard('move',getSelection()));
+   if(visibility.delete)button(a,'🗑 Excluir',()=>deleteChosen(getSelection()),true);}
+  if(visibility.exit)button(a,'✕ Sair',()=>{selected.clear();selectMode=false;render()});
+ }
+
+}
+const TOOLBAR_LABELS={sortBtn:'Ordenar',selectBtn:'Selecionar',batchBtn:'Mais ações',historyBack:'Voltar',historyForward:'Avançar',refreshTop:'Atualizar',favoritesBtn:'Favoritos'};
+function validOrder(key,defaults){const arr=Array.isArray(prefs[key])?prefs[key]:[];return [...new Set([...arr.filter(v=>defaults.includes(v)),...defaults])];}
+function applyToolbarOrder(){
+ for(const [selector,key,defaults] of [['#browserPage .toolbar','toolbarOrder',['sortBtn','selectBtn','batchBtn']],['#browserPage .history-row','historyOrder',['historyBack','historyForward','refreshTop','favoritesBtn']]]){
+ const box=document.querySelector(selector);if(!box)continue;const order=validOrder(key,defaults);prefs[key]=order;
+ const anchor=key==='historyOrder'?$('searchProgress'):null;
+ order.forEach(id=>{const btn=$(id);if(btn)box.insertBefore(btn,anchor)});
+ }
+}
+function renderToolbarOrderSettings(){
+ for(const [hostId,key,defaults,title] of [['toolbarOrderSettings','toolbarOrder',['sortBtn','selectBtn','batchBtn'],'Ações'],['historyOrderSettings','historyOrder',['historyBack','historyForward','refreshTop','favoritesBtn'],'Navegação']]){
+ const host=$(hostId);if(!host)continue;host.replaceChildren();const titleNode=document.createElement('p');titleNode.className='muted';titleNode.textContent=title;host.append(titleNode);
+ const order=validOrder(key,defaults);prefs[key]=order;
+ order.forEach((id,index)=>{const row=document.createElement('div');row.className='setting-line';const label=document.createElement('span');label.textContent=TOOLBAR_LABELS[id];const controls=document.createElement('div');controls.className='order-controls';for(const [symbol,delta] of [['↑',-1],['↓',1]]){const btn=document.createElement('button');btn.type='button';btn.textContent=symbol;btn.setAttribute('aria-label','Mover '+TOOLBAR_LABELS[id]+' '+(delta<0?'para cima':'para baixo'));btn.disabled=index+delta<0||index+delta>=order.length;btn.onclick=()=>{const next=[...order];[next[index],next[index+delta]]=[next[index+delta],next[index]];prefs[key]=next;persistPrefs();renderToolbarOrderSettings()};controls.append(btn)}row.append(label,controls);host.append(row)});
+ }
+}
+function invertSelection(){
+ const keys=visibleSelectionKeys.filter(k=>k!=null);
+ if(!keys.length){notify('Nenhum item visível para inverter');return}
+ const before=new Set(selected);keys.forEach(k=>before.has(k)?selected.delete(k):selected.add(k));selectMode=true;render();notify('Seleção invertida · '+selected.size+' item(ns)')
+}
+function copyDetailValue(value){
+ show('<h2>📋 Copiar informação</h2><p class="muted">Selecione o texto abaixo e utilize Copiar no celular.</p><textarea id="detailCopyText" class="form-input" rows="4" readonly></textarea><button id="detailCopyGo" class="primary">Copiar</button><button id="detailCopyClose" class="secondary">Fechar</button>');
+ $('detailCopyText').value=value;$('detailCopyText').focus();$('detailCopyText').select();
+ $('detailCopyClose').onclick=close;
+ $('detailCopyGo').onclick=async()=>{try{if(!navigator.clipboard?.writeText)throw Error('Indisponível');await navigator.clipboard.writeText(value);notify('Informação copiada');close()}catch{$('detailCopyText').focus();$('detailCopyText').select();notify('Selecione e copie o texto manualmente')}};
+}
+function applyPrefs(){
+ if($("editorWrapPref"))$("editorWrapPref").checked=!!prefs.editorWrap;
+ if($("editorFontPref"))$("editorFontPref").value=String([12,14,16,18,20,24].includes(Number(prefs.editorFontSize))?prefs.editorFontSize:16);
+ document.querySelector('.search').classList.toggle('hidden',!prefs.search||settingsOpen);
+ $('storageBadge').classList.toggle('hidden',!prefs.storageBadge||settingsOpen);
+ $('sortBtn').classList.toggle('hidden',!prefs.sort);$('selectBtn').classList.toggle('hidden',!prefs.select);$('batchBtn').classList.toggle('hidden',!prefs.batch);
+ const back=$('devBack'),refresh=$('devRefresh');if(back)back.classList.add('hidden');if(refresh)refresh.classList.add('hidden');$('refreshTop').classList.toggle('hidden',!prefs.refreshTop);applyToolbarOrder();
+ $('selectionStatus').classList.toggle('hidden',settingsOpen||!selectMode||prefs.selectionStatusVisible===false);
+ $('sectionTitle').classList.toggle('hidden',!prefs.folderTitle);
+ $('breadcrumb').classList.toggle('hidden',!prefs.breadcrumb||settingsOpen);
+ $('folderCount').classList.toggle('hidden',!prefs.folderCount||settingsOpen||!!query||!!category||view==='recent');
+ $('bottomNav').classList.toggle('hidden',!prefs.bottomNav);$('app').dataset.layout=prefs.layout==='grid'?'grid':'list';$('layoutPref').value=$('app').dataset.layout;$('recursivePref').checked=!!prefs.recursive;$('showRefreshTop').checked=!!prefs.refreshTop;$('app').dataset.density=['compact','normal','large'].includes(prefs.density)?prefs.density:'normal';$('densityPref').value=$('app').dataset.density;drawQuickPanels();
+ renderDock();syncSelectionHighlight();
+ $('historyRow').classList.toggle('hidden',settingsOpen||!prefs.historyRow);$('historyBack').classList.toggle('hidden',!prefs.historyBack);$('historyForward').classList.toggle('hidden',!prefs.historyForward);$('favoritesBtn').classList.toggle('hidden',!prefs.favoritesTop);$('showFolderCount').checked=!!prefs.folderCount;$('showSearch').checked=!!prefs.search;$('showFolderTitle').checked=!!prefs.folderTitle;$('showBottomNav').checked=!!prefs.bottomNav;
+ for(const k of ['storageBadge','breadcrumb','sort','select','batch'])$('show'+k[0].toUpperCase()+k.slice(1)).checked=!!prefs[k];
+}
+function updateFolderCount(rows){const n=rows.filter(x=>x.kind==="file").length,dirs=rows.filter(x=>x.kind==="folder"||x.kind==="directory").length,bytes=rows.filter(x=>x.kind==="file").reduce((a,x)=>a+(x.size||0),0);$("folderCount").textContent="📊 Nesta pasta: "+n+" arquivo(s) · "+dirs+" pasta(s) · "+fmt(bytes)+" (somente este nível)";$("folderCount").classList.toggle("hidden",settingsOpen||!prefs.folderCount||!!query||!!category||view==="recent");}
+function selectFirstCount(){const available=visibleSelectionKeys.slice();if(!available.length)return notify("Nenhum item disponível");show(`<h2>☑ Selecionar por quantidade</h2><p class="muted">Seleciona os primeiros itens da lista visível, na ordem escolhida. Não entra nas subpastas.</p><input id="countSelection" class="form-input" type="number" min="1" max="${available.length}" value="${Math.min(50,available.length)}"><button id="countSelectionGo" class="primary">Selecionar</button>`);$("countSelectionGo").onclick=()=>{const count=Math.floor(Number($("countSelection").value));if(!Number.isFinite(count)||count<1)return notify("Informe uma quantidade válida");selected=new Set(available.slice(0,Math.min(count,available.length)));selectMode=true;close();render();notify(selected.size+" itens selecionados")}}
+function persistPrefs(){try{localStorage.setItem('filesExplorerPrefs',JSON.stringify(prefs))}catch{}applyPrefs()}
+function initPrefs(){
+ $('startupPref').value=['home','last','favorites'].includes(prefs.startup)?prefs.startup:'home';$('startupPref').onchange=e=>{prefs.startup=e.target.value;persistPrefs()};$('densityPref').onchange=e=>{prefs.density=e.target.value;persistPrefs()};$('layoutPref').onchange=e=>{prefs.layout=e.target.value;persistPrefs()};$('showRefreshTop').onchange=e=>{prefs.refreshTop=e.target.checked;persistPrefs()};$('recursivePref').onchange=e=>{prefs.recursive=e.target.checked;persistPrefs();triggerSearch()};
+ for(const [id,key] of [['showFolderCount','folderCount'],['showSearch','search'],['showFolderTitle','folderTitle'],['showBottomNav','bottomNav'],['showHistoryRow','historyRow'],['showHistoryBack','historyBack'],['showHistoryForward','historyForward'],['showFavoritesTop','favoritesTop'],['showEditorIdentity','editorIdentity'],['showEditorStats','editorStats'],...['storageBadge','breadcrumb','sort','select','batch'].map(k=>['show'+k[0].toUpperCase()+k.slice(1),k])])$(id).onchange=e=>{prefs[key]=e.target.checked;persistPrefs()};
+ const host=$('navToggles');for(const [key,label] of navChoices){const l=document.createElement('label');l.className='setting-line';const text=document.createElement('span');text.textContent=label;const input=document.createElement('input');input.type='checkbox';input.checked=!!prefs['nav_'+key];input.onchange=e=>{prefs['nav_'+key]=e.target.checked;persistPrefs()};l.append(text,input);host.append(l)}
+ $('selectionProminent').onchange=e=>{prefs.selectionProminent=e.target.checked;persistPrefs()};$('editorWrapPref').onchange=e=>{prefs.editorWrap=e.target.checked;persistPrefs()};$('editorFontPref').onchange=e=>{prefs.editorFontSize=Number(e.target.value);persistPrefs()};renderEditorToolbarSettings();applyPrefs();renderToolbarOrderSettings();
+}
+const uuid=()=>crypto.randomUUID?.()||Date.now().toString(36)+Math.random().toString(36).slice(2);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=n=>{if(!n)return '0 B';let u=['B','KB','MB','GB','TB'],i=Math.min(4,Math.floor(Math.log(n)/Math.log(1024)));return (n/1024**i).toFixed(i?1:0)+' '+u[i]};
+const date=t=>new Date(t).toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'});
+const cat=x=>x.kind==='folder'?'folder':x.type?.startsWith('image/')?'image':x.type?.startsWith('video/')?'video':x.type?.startsWith('audio/')?'audio':(/pdf|text|document|sheet|presentation|json|xml|zip|csv/.test(x.type||'')||/\.(pdf|docx?|xlsx?|pptx?|txt|csv|json|zip|md)$/i.test(x.name))?'document':'other';
+const icon=x=>({folder:'📁',image:'🖼️',video:'🎬',audio:'🎵',document:'📄',other:'📦'})[cat(x)];
+const request=(store,mode,cb)=>new Promise((resolve,reject)=>{let tx=db.transaction(store,mode),os=tx.objectStore(store),result;tx.oncomplete=()=>resolve(result);tx.onerror=()=>reject(tx.error);result=cb(os)});
+function initDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open('bolso-file-manager',1);req.onupgradeneeded=()=>{const st=req.result.createObjectStore('files',{keyPath:'id'});st.createIndex('parent','parent')};req.onsuccess=()=>{db=req.result;resolve()};req.onerror=()=>reject(req.error)})}
+async function refresh(){items=await new Promise((resolve,reject)=>{const tx=db.transaction('files'),r=tx.objectStore('files').getAll();r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});render()}
+async function put(x){await request('files','readwrite',os=>os.put(x));await refresh()}
+async function del(id){await request('files','readwrite',os=>os.delete(id))}
+function descendants(id){const out=[id];for(let i=0;i<out.length;i++)items.filter(x=>x.parent===out[i]).forEach(x=>out.push(x.id));return out}
+async function removeItem(x){if(!confirm('Excluir "'+x.name+'"'+(x.kind==='folder'?' e todo o conteúdo?':'?')))return;for(const id of descendants(x.id))await del(id);selected.clear();await refresh();logOperation('Exclusão',x.name);notify('Excluído com sucesso')}
+function notify(msg){const t=$('toast');t.textContent=msg;t.classList.remove('hidden');clearTimeout(notify.timer);notify.timer=setTimeout(()=>t.classList.add('hidden'),2600)}
+function show(html){$('modalRoot').innerHTML='<div class="shade" id="shade"><div class="sheet" role="dialog" aria-modal="true"><div class="handle"></div>'+html+'</div></div>';$('shade').addEventListener('click',e=>{if(e.target.id==='shade')close()})}
+function close(){if(previewUrl){URL.revokeObjectURL(previewUrl);previewUrl=null}$('modalRoot').innerHTML=''}
+function action(label,ico,fn,danger=false){let el=document.createElement('button');el.className='action'+(danger?' danger':'');el.innerHTML='<span>'+ico+'</span>'+esc(label);el.onclick=fn;return el}
+function actions(title,arr){show('<div class="action-heading"><h2>'+esc(title)+'</h2><button type="button" id="actionClose" class="viewer-close" aria-label="Fechar menu">✕ Fechar</button></div><div id="actions"></div>');$('shade').classList.add('action-fullscreen');$('actionClose').onclick=close;const container=$('actions');arr.forEach(a=>{const entry=[...a];if(typeof entry[0]==='string'&&entry[1]&&entry[0].startsWith(entry[1]))entry[0]=entry[0].slice(entry[1].length).trim();container.append(action(...entry))})}
+function folderPath(){let chain=[],cur=folder;while(cur){let f=items.find(x=>x.id===cur);if(!f)break;chain.unshift(f);cur=f.parent}return chain}
+function navTo(v,f=null,c=null){if(v==='home'||v==='folders'){try{localStorage.setItem('filesExplorerLastFolder',JSON.stringify({v,f}))}catch{}}if(!historyMute)rememberLocation({mode:'internal',v,f,c});settingsOpen=false;deviceMode=false;$('deviceStatus').textContent='Acesse uma pasta real do aparelho quando o navegador permitir.';view=v;folder=f;category=c;query='';$('search').value='';selectMode=false;selected.clear();render()}
+function render(){updateHistoryButtons();updateSelectionButtons();syncPages();updateStorageBadge();updateModeStatus();if(settingsOpen){renderSettings();return}if(deviceMode){renderDevice();return}let total=items.filter(x=>x.kind==='file'),size=total.reduce((s,x)=>s+(x.size||0),0);$('usageText').textContent=fmt(size)+' armazenados neste app';$('usagePercent').textContent=total.length+' arquivo'+(total.length===1?'':'s');$('usageBar').style.width=Math.min(100,Math.max(total.length?5:0,Math.log10(size+1)*9))+'%';document.querySelectorAll('.tile').forEach(t=>t.classList.toggle('active',category===t.dataset.cat));document.querySelectorAll('nav button:not(.add)').forEach(b=>b.classList.remove('on'));$(view==='recent'?'recentNav':view==='folders'?'foldersNav':view==='about'?'settingsNav':'homeNav').classList.add('on');if(view==='about'){renderAbout();return}
+let data=items.slice();if(query){const allowed=prefs.recursive&&folder?new Set(descendants(folder)):null;data=data.filter(x=>matchesQuery(x)&&(!allowed||allowed.has(x.parent)))}else if(category){data=data.filter(x=>x.kind==='file'&&cat(x)===category)}else if(view==='recent'){data=data.filter(x=>x.kind==='file')}else{data=data.filter(x=>x.parent===folder);if(view==='folders'&&folder===null)data=data.filter(x=>x.kind==='folder')}
+data=data.filter(passesAdvancedFilters);data.sort(advancedCompare);if(!category&&!query&&view!=='recent')data.sort((a,b)=>(a.kind==='folder'?-1:1)-(b.kind==='folder'?-1:1));
+$('sectionTitle').textContent=query?'Resultados da busca':category?({image:'Imagens',video:'Vídeos',audio:'Áudios',document:'Documentos'})[category]:view==='recent'?'Arquivos recentes':folder?items.find(x=>x.id===folder)?.name||'Pasta':view==='folders'?'Minhas pastas':'Todos os arquivos';
+let path=$('breadcrumb');path.replaceChildren();if(folder&&!query&&!category){const root=document.createElement('button');root.textContent='Início';root.onclick=()=>navTo(view);path.append(root);for(const f of folderPath()){path.append(document.createTextNode(' / '));let b=document.createElement('button');b.textContent=f.name;b.onclick=()=>navTo(view,f.id);path.append(b)}}
+if(!query&&!category&&view!=="recent")updateFolderCount(items.filter(x=>x.parent===folder));else $("folderCount").classList.add("hidden");visibleSelectionKeys=data.map(x=>x.id);const list=$('fileList');list.replaceChildren();if(!data.length){list.innerHTML='<div class="empty"><span>📂</span><b>'+(query?'Nenhum resultado encontrado':'Seu espaço está vazio')+'</b><div>'+(query?'Tente outro nome.':'Toque em + para importar arquivos ou criar uma pasta.')+'</div></div>';return}
+data.forEach(x=>{const row=document.createElement('div');row.className='file'+(selected.has(x.id)?' selected':'');const main=document.createElement('button');main.className='file-main';main.innerHTML='<span class="file-icon">'+icon(x)+'</span><span class="file-info"><span class="file-name">'+(isFav(x)?'★ ':'')+esc(x.name)+'</span><span class="file-meta">'+(x.kind==='folder'?'Pasta · '+items.filter(i=>i.parent===x.id).length+' itens':fmt(x.size)+' · '+date(x.created))+'</span></span>';main.onclick=()=>{if(selectMode){toggleSelected(x.id)}else if(x.kind==='folder')navTo(view==='folders'?'folders':'home',x.id);else preview(x)};const more=document.createElement('button');more.className='dots';more.textContent=selectMode?(selected.has(x.id)?'☑':'□'):'⋮';more.setAttribute('aria-label','Opções de '+x.name);more.onclick=()=>selectMode?toggleSelected(x.id):menu(x);row.append(main,more);attachLongPress(main,()=>openItemContext(x));main.addEventListener('pointerdown',e=>e.stopPropagation());main.addEventListener('contextmenu',e=>e.stopPropagation());list.append(row)});}
+
+function attachLongPress(target,callback){
+ let timer=null,x=0,y=0,fired=false;
+ target.addEventListener('pointerdown',e=>{if(e.button!==0||e.pointerType==='mouse')return;fired=false;x=e.clientX;y=e.clientY;clearTimeout(timer);timer=setTimeout(()=>{fired=true;target.dataset.longPressed='1';callback();},520)});
+ target.addEventListener('pointermove',e=>{if(Math.hypot(e.clientX-x,e.clientY-y)>12)clearTimeout(timer)});
+ for(const ev of ['pointerup','pointercancel','pointerleave'])target.addEventListener(ev,()=>clearTimeout(timer));
+ target.addEventListener('contextmenu',e=>{e.preventDefault();clearTimeout(timer);target.dataset.longPressed='1';callback()});
+ target.addEventListener('click',e=>{if(target.dataset.longPressed==='1'){e.preventDefault();e.stopImmediatePropagation();target.dataset.longPressed='0'}},true);
+}
+function openEmptyContext(){if(!deviceMode)return notify('Escolha uma pasta do celular');if(selected.size)return openBatchMenu();const list=[['📁 Criar pasta','📁',()=>{close();deviceCreateFolder()}],['📝 Criar arquivo de texto / código','📝',()=>{close();createTextFile()}]];
+ if(clipboard&&clipboard.device===deviceMode)list.push(['📋 Colar aqui','📋',pasteClipboard]);
+ list.push(['☑ Ativar seleção múltipla','☑',()=>{close();selectMode=true;selected.clear();render()}]);list.push(['🔄 Atualizar','🔄',()=>{close();readDevice()}]);list.push(['ℹ️ Informações da pasta','ℹ️',()=>{close();showFileStatistics()}]);
+ actions('Espaço livre · Pasta do celular',list);
+}
+function openItemContext(x){
+ const key=deviceMode?x.name:x.id;
+ if(selectMode){selected.add(key);render();openBatchMenu();return}
+ selected.clear();selected.add(key);render();
+ // O menu do toque prolongado oferece as mesmas operações do item.
+ // A seleção é mantida para que o botão ⋮ superior abra o menu contextual.
+ openBatchMenu();
+}
+function updateModeStatus(){drawQuickPanels();let s=$('selectionStatus');const metrics=selectedMetrics();s.textContent=selectMode?'☑ '+selected.size+' selecionado(s) · '+metrics.n+' arquivos · '+metrics.folders+' pastas · '+fmt(metrics.bytes)+(intervalPending?' · Toque no último item do intervalo':''):'';s.classList.toggle('hidden',settingsOpen||!selectMode||prefs.selectionStatusVisible===false)}
+function updateStorageBadge(){const badge=$('storageBadge');badge.textContent=deviceMode&&deviceRoot?'📱 Pasta real: '+deviceRoot.name:'📂 Nenhuma pasta conectada';}
+function updateSelectionButtons(){
+ $('selectBtn').classList.toggle('active',selectMode);
+ $('selectBtn').setAttribute('aria-pressed',String(selectMode));
+ $('batchBtn').classList.toggle('active',selected.size>0);
+ $('batchBtn').title=selected.size?selected.size+' selecionado(s) — ações':'Ações e área de transferência';
+}
+function toggleSelected(id){if(intervalPending){selectIntervalEnd(id);return}selected.has(id)?selected.delete(id):selected.add(id);render()}
+function getSelection(){return deviceMode?deviceEntries.filter(x=>selected.has(x.name)):items.filter(x=>selected.has(x.id))}
+function toggleSelectionMode(){selectMode=!selectMode;intervalPending=false;selected.clear();render();notify(selectMode?'Toque nos itens para selecionar':'Seleção encerrada')}
+function openBatchMenu(){
+ const chosen=getSelection(),n=chosen.length,arr=[];
+ if(n===1)arr.push(['Abrir','👁️',()=>{close();deviceMode?openDeviceItem(chosen[0]):chosen[0].kind==='folder'?navTo('home',chosen[0].id):preview(chosen[0])}]);
+ if(n===1)arr.push(['📏 Selecionar intervalo a partir deste','☑',beginInterval]);
+ if(n===1)arr.push(['ℹ️ Informações','ℹ️',()=>{close();showDetails(chosen[0])}]);
+ if(n===1)arr.push(['⭐ Favoritos','⭐',()=>{close();toggleFav(chosen[0])}]);
+ if(n===1)arr.push(['Renomear','✏️',()=>deviceMode?deviceRename(chosen[0]):rename(chosen[0])]);
+ if(n){arr.push(['📋 Copiar','📋',()=>stageClipboard('copy',chosen)]);arr.push(['✂️ Recortar','✂️',()=>stageClipboard('move',chosen)]);arr.push(['📦 Mover','📦',()=>stageClipboard('move',chosen)]);arr.push(['Excluir '+n+' item(ns)','🗑️',()=>deleteChosen(chosen),true])}
+ if(prefs.menuFilters)arr.push(['🔎 Filtros combinados','⌕',()=>{close();filterDialog()}]);
+ if(clipboard&&clipboard.device===deviceMode)arr.push(['Colar '+clipboard.entries.length+' item(ns) aqui','📥',pasteClipboard]);
+ if(prefs.menuInvert)arr.push(['⇄ Inverter seleção visível','⇄',()=>{close();invertSelection()}]);
+ arr.push(['Selecionar tudo nesta pasta','☑',()=>{close();selectMode=true;const data=deviceMode?deviceEntries:items.filter(x=>x.parent===folder);data.forEach(x=>selected.add(deviceMode?x.name:x.id));render()}]);
+ if(selectMode)arr.push(['Cancelar seleção','✕',()=>{close();selectMode=false;selected.clear();render()}]);
+ actions(n?n+' item(ns) selecionado(s)':'Ações dos arquivos',arr);
+}
+function stageClipboard(mode,entries){
+ clipboard={mode,device:deviceMode,entries:deviceMode?entries.map(x=>({name:x.name,kind:x.kind,handle:x.handle})):entries.map(x=>x.id),source:deviceMode?currentDevice():folder};
+ selected.clear();selectMode=false;close();render();notify((mode==='copy'?'Copiado':'Pronto para mover')+': abra o destino e toque em ⋯ → Colar');
+}
+async function existsDevice(dir,name){for await(const [n] of dir.entries())if(n===name)return true;return false}
+async function copyDeviceEntry(src,dst){
+ if(await existsDevice(dst,src.name))throw Error('Já existe "'+src.name+'" no destino');
+ if(src.kind==='directory'){
+  const inside=await src.handle.resolve(dst).catch(()=>null);
+  if(inside!==null)throw Error('Não é possível colocar uma pasta dentro dela mesma');
+ }
+ await copyHandle(src.handle,dst);
+}
+async function copyLocalTree(id,parent){
+ const x=items.find(v=>v.id===id);if(!x)return;
+ const duplicate={...x,id:uuid(),parent,created:Date.now()};
+ await request('files','readwrite',os=>os.put(duplicate));
+ if(x.kind==='folder')for(const child of items.filter(v=>v.parent===id))await copyLocalTree(child.id,duplicate.id);
+}
+async function pasteClipboard(){
+ close();if(!clipboard)return;
+ const clip=clipboard;let done=0;
+ try{
+  if(clip.device){
+   const dst=currentDevice();
+   for(const x of clip.entries){
+    if(await clip.source.isSameEntry(dst)&&clip.mode==='move')throw Error('Os itens já estão nesta pasta');
+    if(await clip.source.isSameEntry(dst)&&clip.mode==='copy')throw Error('Escolha outra pasta para a cópia');
+    await copyDeviceEntry(x,dst);done++;
+    if(clip.mode==='move')await clip.source.removeEntry(x.name,{recursive:x.kind==='directory'});
+   }
+   await readDevice();
+  }else{
+   for(const id of clip.entries){const x=items.find(v=>v.id===id);if(!x)continue;
+    if(x.kind==='folder'&&(id===folder||descendants(id).includes(folder)))throw Error('Não é possível mover/copiar uma pasta para dentro dela mesma');
+    if(clip.mode==='move'){x.parent=folder;await request('files','readwrite',os=>os.put(x))}else await copyLocalTree(id,folder);
+    done++;
+   }
+   await refresh();
+  }
+  if(clip.mode==='move')clipboard=null;drawQuickPanels();
+  if(done)logOperation(clip.mode==='move'?'Movimentação':'Cópia',done+' item(ns)');notify(done+' item(ns) '+(clip.mode==='move'?'movido(s)':'copiado(s)'));
+ }catch(e){notify('Operação interrompida após '+done+' item(ns): '+e.message);if(clip.mode==='move')clipboard=null;drawQuickPanels();deviceMode?await readDevice():await refresh()}
+}
+async function deleteChosen(chosen){
+ close();if(!confirm('Excluir permanentemente '+chosen.length+' item(ns) selecionado(s)'+(deviceMode?' da pasta original do celular':'')+'?'))return;
+ let done=0;for(const x of chosen){try{
+  if(deviceMode)await currentDevice().removeEntry(x.name,{recursive:x.kind==='directory'});
+  else for(const id of descendants(x.id))await del(id);
+  done++;
+ }catch(e){notify('Erro ao excluir '+x.name+': '+e.message);break}}
+ if(done)logOperation('Exclusão',done+' item(ns)');selected.clear();selectMode=false;deviceMode?await readDevice():await refresh();notify(done+' item(ns) excluído(s)');
+}
+
+function menu(x){actions(x.name,[[isFav(x)?'☆ Remover dos favoritos':'★ Adicionar aos favoritos','★',()=>{close();toggleFav(x)}],['ℹ️ Informações','ⓘ',()=>{close();showDetails(x)}],...(x.kind==='file'?[['Abrir / visualizar','👁️',()=>preview(x)],['Baixar arquivo','⬇️',()=>download(x)]]:[['Abrir pasta','📂',()=>{close();navTo('home',x.id)}]]),['Renomear','✏️',()=>rename(x)],['Mover para pasta','📁',()=>move(x)],['Excluir','🗑️',()=>{close();removeItem(x)},true]])}
+function rename(x){show('<h2>Renomear</h2><input id="newName" class="form-input" maxlength="200" value="'+esc(x.name)+'"><button id="saveName" class="primary">Salvar</button>');$('saveName').onclick=async()=>{const n=$('newName').value.trim();if(!n)return notify('Digite um nome');x.name=n;close();await put(x);logOperation('Renomeação',n)};$('newName').focus()}
+function move(x){const folders=items.filter(f=>f.kind==='folder'&&f.id!==x.id&&!descendants(x.id).includes(f.id));show('<h2>Mover para...</h2><div id="targets"></div>');const target=$('targets');const opts=[{id:null,name:'🏠  Raiz / Início'},...folders.map(f=>({id:f.id,name:'📁  '+f.name}))];opts.forEach(f=>target.append(action(f.name,'›',async()=>{x.parent=f.id;close();await put(x);logOperation('Movimentação',x.name+' → '+f.name);notify('Arquivo movido')})))}
+function download(x){if(!x.blob)return;let url=URL.createObjectURL(x.blob),a=document.createElement('a');a.href=url;a.download=x.name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);close()}
+// Destaque sem executar conteúdo: somente nós de texto e spans escapados.
+function highlightCode(text,ext){
+ const safe=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+ if(text.length>350000)return safe(text); // não travar arquivos grandes
+ const rx=/(<!--[\s\S]*?-->|\/\*[\s\S]*?\*\/|\/\/[^\n]*|#[^\n]*|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\b(?:const|let|var|function|return|class|new|if|else|for|while|async|await|true|false|null|undefined|import|export|default|try|catch|throw)\b|\b\d+(?:\.\d+)?\b|<\/?[A-Za-z][\w:-]*|\b[A-Za-z_-][\w:-]*(?=\s*=))/g;
+ let out='',pos=0,m;while((m=rx.exec(text))){out+=safe(text.slice(pos,m.index));const t=m[0];let kind='';if(t.startsWith('<!--')||t.startsWith('/*')||t.startsWith('//')||(ext==='css'&&t.startsWith('#')))kind='comment';else if(t[0]==='"'||t[0]==="'")kind='string';else if(t[0]==='<')kind='tag';else if(/^\d/.test(t))kind='number';else if(/^(const|let|var|function|return|class|new|if|else|for|while|async|await|true|false|null|undefined|import|export|default|try|catch|throw)$/.test(t))kind='keyword';else kind='attr';out+='<span class="tok-'+kind+'">'+safe(t)+'</span>';pos=rx.lastIndex}return out+safe(text.slice(pos));
+}
+function showDraftManager(){
+ const prefix='fe30:draft:';const entries=[];
+ try{for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(!key?.startsWith(prefix))continue;try{const d=JSON.parse(localStorage.getItem(key));if(d&&typeof d.text==='string')entries.push({key,...d})}catch{}}}catch{}
+ entries.sort((a,b)=>(b.date||0)-(a.date||0));
+ const html='<h2>📝 Gerenciador de rascunhos</h2><p class="muted">Rascunhos armazenados somente neste navegador. Recuperar baixa uma cópia TXT para evitar substituir arquivos sem autorização.</p><div id="draftItems"></div><button class="secondary" id="draftManagerClose">Fechar</button>';
+ show(html);$('draftManagerClose').onclick=close;
+ const list=$('draftItems');if(!entries.length){list.innerHTML='<p class="muted">Nenhum rascunho guardado.</p>';return}
+ for(const d of entries){const row=document.createElement('div');row.style.cssText='padding:10px;border:1px solid #44516b;border-radius:10px;margin-bottom:10px';
+ const info=document.createElement('div');info.textContent=(d.name||'Sem nome')+' · '+(d.date?new Date(d.date).toLocaleString('pt-BR'):'data desconhecida')+' · '+d.text.length+' caracteres';row.append(info);
+ const recover=document.createElement('button');recover.className='secondary';recover.textContent='⬇️ Recuperar cópia';recover.onclick=()=>downloadBlob(new Blob([d.text],{type:'text/plain;charset=utf-8'}),(d.name||'rascunho')+'.rascunho.txt');row.append(recover);
+ const discard=document.createElement('button');discard.className='secondary';discard.textContent='🗑 Excluir';discard.onclick=()=>{if(confirm('Excluir permanentemente este rascunho?')){localStorage.removeItem(d.key);row.remove();notify('Rascunho excluído')}};row.append(discard);list.append(row)}
+}
+async function preview(x){
+ close();
+ const name=x.name||'Arquivo',type=x.type||'',ext=name.split('.').pop().toLowerCase();
+ const textual=['html','htm','json','webmanifest','js','mjs','css','txt','md','xml','csv','svg','log','yaml','yml','ts'].includes(ext)||type.startsWith('text/');
+ let currentBlob=x.blob,originalText=textual?await currentBlob.text():null,editedText=originalText,editing=false,dirty=false,tab='code',readOnlyMode=false,draftTimer=null;
+ const draftKey='fe30:draft:'+JSON.stringify([deviceRoot?.name||'interno',deviceStack.map(h=>h.name),name]);
+ const clearDraft=()=>{clearTimeout(draftTimer);try{localStorage.removeItem(draftKey)}catch{}};
+ const storeDraft=()=>{clearTimeout(draftTimer);if(!dirty)return;draftTimer=setTimeout(()=>{try{if(editedText.length<=180000)localStorage.setItem(draftKey,JSON.stringify({text:editedText,date:Date.now(),name}))}catch{}},750)};
+ if(textual){try{const d=JSON.parse(localStorage.getItem(draftKey)||'null');if(d&&typeof d.text==='string'&&d.text!==originalText){if(confirm('Existe um rascunho não salvo de '+new Date(d.date).toLocaleString('pt-BR')+'. Recuperar alterações?')){editedText=d.text;dirty=true}else clearDraft()}}catch{}}
+ previewUrl=URL.createObjectURL(currentBlob);
+ const pdf=ext==='pdf'||type==='application/pdf', html=['html','htm'].includes(ext);
+ const isJson=['json','webmanifest'].includes(ext);
+ const saveable=textual;
+ const root=$('modalRoot');root.innerHTML='<div class="shade viewer-shade fe41-main"><div class="sheet" role="dialog" aria-modal="true"><div class="viewer-head"><h2 id="viewerTitle"></h2><button class="viewer-close" id="viewerClose">✕ Fechar</button></div><div class="viewer-controls-row"><div class="viewer-top-tools"><button id="fe41Save" type="button">💾 Salvar</button><button id="viewerReadEdit" type="button">✏️ Editar</button><button id="viewerRead" type="button">📖 Ler</button><button id="viewerEditorPrefs" type="button">⚙</button></div><div class="viewer-tabs" id="viewerTabs"></div></div><div class="fe41-save-menu hidden" id="fe41SaveMenu"><button id="fe41SaveChanges" type="button">💾 Salvar alterações</button><button id="fe41SaveAs" type="button">📄 Salvar como…</button><button id="fe41SaveCancel" type="button">✕ Fechar</button></div><div class="viewer-info hidden" id="viewerInfo"></div><div class="viewer-tools-dock"><div class="editor-quick-top"></div><div class="editor-quick-bottom"></div></div><div class="viewer-content" id="viewerContent"></div><div class="viewer-notice hidden" id="viewerNotice"></div><div class="viewer-footer hidden" id="viewerFooter"></div></div></div>';
+ const readButton=$('viewerRead'),readEditButton=$('viewerReadEdit');
+ $('viewerTitle').textContent=name;
+ const viewerShade=root.querySelector('.viewer-shade');
+ let activeEditorController=null;
+ $('viewerEditorPrefs').onclick=()=>openEditorQuickSettings(activeEditorController||{refresh:()=>{},refreshLayout:()=>{}});
+ function setMode(mode){capture();readOnlyMode=mode==='read';tab=mode==='edit'?'edit':'code';editing=tab==='edit';renderViewer()}
+ const toggleSaveMenu=()=>{$('fe41SaveMenu').classList.toggle('hidden')};
+ $('fe41Save').onclick=toggleSaveMenu;
+ $('fe41SaveCancel').onclick=()=>{$('fe41SaveMenu').classList.add('hidden')};
+ $('fe41SaveChanges').onclick=()=>{$('fe41SaveMenu').classList.add('hidden');void saveText()};
+ $('fe41SaveAs').onclick=()=>{$('fe41SaveMenu').classList.add('hidden');void saveAsText()};
+ function capture(){if(editing&&$('viewerEditor')){editedText=$('viewerEditor').value;dirty=editedText!==originalText;storeDraft()}}
+ function selectTab(next){capture();tab=next;editing=next==='edit';renderViewer()}
+ function safePreview(){const frame=document.createElement('iframe');frame.className='viewer-frame';frame.title='Prévia isolada do HTML';frame.setAttribute('sandbox','');frame.referrerPolicy='no-referrer';frame.srcdoc=editedText;return frame}
+ function renderViewer(){
+  const mode=readOnlyMode?'read':tab==='edit'?'edit':'main';
+  viewerShade.classList.toggle('reading-mode',mode==='read');viewerShade.classList.toggle('viewer-editing',mode==='edit');
+  viewerShade.classList.toggle('fe41-main',mode==='main');viewerShade.classList.toggle('fe41-edit',mode==='edit');viewerShade.classList.toggle('fe41-read',mode==='read');
+  $('fe41SaveMenu').classList.add('hidden');
+  $('viewerRead').textContent=mode==='read'?'📖 Sair leitura':mode==='edit'?'📖 Ler':'📖 Ler';
+  $('viewerReadEdit').textContent=mode==='edit'?'✕ Sair da edição':mode==='read'?'✏️ Editar texto':'✏️ Editar';
+  $('viewerEditorPrefs').classList.toggle('hidden',mode!=='main');
+  const tabs=$('viewerTabs'),content=$('viewerContent'),footer=$('viewerFooter');
+  tabs.replaceChildren();content.replaceChildren();footer.replaceChildren();
+  if(mode!=='edit')root.querySelectorAll('.viewer-tools-dock .editor-quick-top,.viewer-tools-dock .editor-quick-bottom').forEach(e=>e.replaceChildren());
+  content.style.display='';content.style.flexDirection='';
+  if(pdf){const info=document.createElement('span');info.className='viewer-info';info.textContent='PDF — leitor integrado do navegador';tabs.append(info)}
+  
+  if(textual){if(tab==='edit'){let ta=document.createElement('textarea');ta.id='viewerEditor';ta.className='viewer-editor';ta.spellcheck=false;ta.value=editedText;ta.oninput=()=>{editedText=ta.value;dirty=ta.value!==originalText;storeDraft();void 0};const wrap=document.createElement('div');wrap.style.cssText='display:flex;flex-direction:column;min-height:0;flex:1';content.append(wrap);content.style.display="flex";content.style.flexDirection="column";const codeWrap=document.createElement('div');wrap.append(codeWrap);codeWrap.append(ta);const ctl=wireCodeEditor(ta,codeWrap);activeEditorController=ctl;const top=root.querySelector('.viewer-tools-dock .editor-quick-top');const bottom=root.querySelector('.viewer-tools-dock .editor-quick-bottom');top.replaceChildren();bottom.replaceChildren();ctl.refreshLayout();setTimeout(()=>ta.focus(),50)}else if(tab==='page'&&html){content.append(safePreview())}else{let pre=document.createElement('pre');pre.className='viewer-code';pre.innerHTML=highlightCode(editedText,ext);content.append(pre)}}
+  else if(pdf){let frame=document.createElement('iframe');frame.className='viewer-frame';frame.title='Leitor de PDF';frame.src=previewUrl;content.append(frame);$('viewerNotice').textContent='Se o PDF não aparecer, use Baixar ou Abrir externamente.'}
+  else if(type.startsWith('image/')){let img=document.createElement('img');img.className='viewer-image';img.src=previewUrl;content.append(img)}
+  else if(type.startsWith('video/')||type.startsWith('audio/')){let el=document.createElement(type.startsWith('video/')?'video':'audio');el.src=previewUrl;el.controls=true;if(el.tagName==='VIDEO')el.playsInline=true;content.append(el)}
+  else{let div=document.createElement('p');div.className='muted';div.style.padding='18px';div.textContent='Prévia não disponível para este formato. Você pode baixar o arquivo.';content.append(div)}
+  const btn=(label,fn)=>{const b=document.createElement('button');b.className='secondary';b.textContent=label;b.style.marginTop='0';b.onclick=fn;footer.append(b)};
+  // Acesso direto à pasta real: não exibir download redundante no editor.
+  if(saveable){ /* Salvamento disponível pelo menu Arquivo na tela principal. */ }
+
+  if(isJson)btn('✓ Validar JSON',()=>{capture();try{JSON.parse(editedText);notify('JSON válido')}catch(e){notify('JSON inválido: '+e.message)}});
+  if(pdf)btn('↗ Abrir PDF',()=>{window.open(previewUrl,'_blank','noopener')});
+ }
+ async function saveAsText(){
+  capture();
+  if(!deviceMode||!currentDevice()){notify('Conecte uma pasta real para usar Salvar como.');return}
+  let newName=prompt('Nome completo da cópia (inclua a extensão, como .html ou .txt):',name);
+  if(newName===null)return;
+  newName=newName.trim();
+  if(!newName||newName==='.'||newName==='..'||/[\\/\x00-\x1f]/.test(newName)||/[. ]$/.test(newName)){notify('Nome de arquivo inválido.');return}
+  try{
+   const dir=currentDevice();
+   if(await existsDevice(dir,newName)){notify('Já existe um arquivo ou pasta com esse nome. Escolha outro nome.');return}
+   const blob=new Blob([editedText],{type:type||'text/plain;charset=utf-8'});
+   const handle=await dir.getFileHandle(newName,{create:true});
+   let written=false;
+   try{const w=await handle.createWritable();await w.write(blob);await w.close();written=true}
+   finally{if(!written)try{await dir.removeEntry(newName)}catch{}}
+   logOperation('Salvar como',name+' → '+newName);
+   notify('Cópia salva: '+newName+'. O arquivo original não foi alterado.');
+  }catch(e){notify('Não foi possível salvar a cópia: '+e.message)}
+ }
+ async function saveText(){capture();if(!dirty){notify('Nenhuma alteração para salvar');return}
+  if(!confirm('Salvar as alterações em "'+name+'"?'))return;
+  try{
+   const blob=new Blob([editedText],{type:type||'text/plain;charset=utf-8'});
+   if(x.handle&&localStorage.getItem('fe31:backupBeforeSave')!=='off'){
+    const parent=currentDevice();if(!parent)throw Error('Pasta de origem não está disponível para o backup.');
+    const stamp=new Date().toISOString().replace(/[:.]/g,'-');let backupName=name+'.backup-'+stamp;
+    let suffix=1;while(await existsDevice(parent,backupName)){backupName=name+'.backup-'+stamp+'-'+(++suffix)}
+    const backupHandle=await parent.getFileHandle(backupName,{create:true});
+    let done=false;try{const w=await backupHandle.createWritable();await w.write(currentBlob);await w.close();done=true}catch(err){try{await parent.removeEntry(backupName)}catch{}throw Error('Backup não foi criado. Salvamento cancelado: '+err.message)}
+    if(done)logOperation('Cópia de segurança',backupName);
+   }
+   if(x.handle){const perm=await x.handle.queryPermission?.({mode:'readwrite'});if(perm!=='granted'&&await x.handle.requestPermission?.({mode:'readwrite'})!=='granted')throw Error('Permissão de gravação não concedida');const w=await x.handle.createWritable();try{await w.write(blob);await w.close()}catch(e){await w.abort().catch(()=>{});throw e}}
+   else if(x.id){const updated={...x,blob,size:blob.size,created:Date.now()};await request('files','readwrite',os=>os.put(updated));items=items.map(i=>i.id===x.id?updated:i)}
+   else{downloadBlob(blob,name);notify('Cópia editada baixada');return}
+   originalText=editedText;dirty=false;clearDraft();currentBlob=blob;logOperation('Edição salva',x.name);notify('Arquivo salvo');renderViewer();
+  }catch(e){notify('Não foi possível salvar: '+e.message)}
+ }
+ $('viewerReadEdit').onclick=()=>{setMode(readOnlyMode||tab!=='edit'?'edit':'main')};
+ $('viewerRead').onclick=()=>{setMode(readOnlyMode?'main':'read')};
+ $('viewerClose').onclick=()=>{capture();if(dirty){if(!confirm('Há alterações não salvas. Fechar? O rascunho poderá ser recuperado na próxima abertura.'))return;try{if(editedText.length<=180000)localStorage.setItem(draftKey,JSON.stringify({text:editedText,date:Date.now(),name}))}catch{}}close();if(deviceMode)readDevice();else refresh()};
+ renderViewer();
+}
+function downloadBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),12000)}
+
+async function share(x){try{if(navigator.canShare&&navigator.canShare({files:[new File([x.blob],x.name,{type:x.type})]}))await navigator.share({files:[new File([x.blob],x.name,{type:x.type})],title:x.name});else notify('Compartilhamento não disponível neste navegador')}catch(e){if(e.name!=='AbortError')notify('Não foi possível compartilhar')}}
+async function importFiles(list){if(!list?.length)return;let count=0;for(const f of list){try{await request('files','readwrite',os=>os.put({id:uuid(),name:f.name,kind:'file',type:f.type||'',size:f.size,created:Date.now()+count,parent:folder,blob:f}));count++}catch(e){notify('Sem espaço ou permissão para salvar arquivos');break}}await refresh();if(count){logOperation('Importação',count+' arquivo(s)');notify(count+' arquivo(s) importado(s)')}}
+function createFolder(){show('<h2>Nova pasta</h2><input id="folderName" class="form-input" placeholder="Nome da pasta" maxlength="100"><button id="createFolder" class="primary">Criar pasta</button>');$('createFolder').onclick=async()=>{let name=$('folderName').value.trim();if(!name)return notify('Digite o nome da pasta');close();await put({id:uuid(),name,kind:'folder',parent:folder,created:Date.now()});logOperation('Criação de pasta',name);notify('Pasta criada')};$('folderName').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('createFolder').click()}});setTimeout(()=>{$('folderName')?.focus()},80)}
+
+function createTextFile(){
+ if(!deviceMode)return notify('Conecte uma pasta real primeiro');
+ const options=['txt','html','json','js','css','md','xml','csv','svg','py','other'];
+ const identities='<div id="editorIdentity" class="editor-identity"><input id="newFileName" class="form-input" placeholder="Nome do arquivo" value="novo-arquivo" maxlength="150" aria-label="Nome do arquivo"><select id="newFileExt" class="form-input" aria-label="Extensão">'+options.map(e=>'<option value="'+e+'">'+(e==='other'?'Outra (no nome)':'.'+e)+'</option>').join('')+'</select></div>';
+ show('<div class="editor-sheet"><div class="editor-header"><h2>📝 Criar arquivo</h2><button id="newFileCancel" class="secondary" type="button">✕ Fechar</button></div>'+identities+'<textarea id="newFileText" class="viewer-editor" spellcheck="false" placeholder="" aria-label="Conteúdo do arquivo"></textarea><div class="editor-quick-top"></div><div class="editor-quick-bottom"></div><div class="editor-actions"><button id="newFilePaste" class="secondary" type="button">📋 Colar</button><button id="newFileSave" class="primary" type="button">Salvar</button><button id="newEditorSettings" class="secondary" type="button" aria-label="Configurações do editor">⚙</button></div></div>');
+ $('shade').classList.add('editor-shade');$('newFileCancel').onclick=close;const newTa=$('newFileText');const newWrap=document.createElement('div');newTa.replaceWith(newWrap);newWrap.append(newTa);const editorCtl=wireCodeEditor(newTa,newWrap);newWrap.before($('newFileText').closest('.editor-sheet').querySelector('.editor-quick-top'));editorCtl.refreshLayout();$('newEditorSettings').onclick=()=>openEditorQuickSettings(editorCtl);
+ $('editorIdentity').classList.toggle('hidden',!prefs.editorIdentity);
+ const pasteButton=$('newFilePaste');$('newFileSave').before(pasteButton);pasteButton.dataset.editorTool='paste';pasteButton.textContent='Colar';pasteButton.className='secondary';$('newFilePaste').onclick=async()=>{try{const t=await navigator.clipboard.readText();const el=$('newFileText');el.setRangeText(t,el.selectionStart,el.selectionEnd,'end');el.focus();}catch(e){notify('Para colar, toque e segure no campo e escolha Colar. O navegador bloqueou a leitura automática.')}};
+ $('newFileSave').onclick=async()=>{
+  if(!prefs.editorIdentity){showSaveIdentity();return}
+  await persistNewText();
+ };
+ async function persistNewText(){
+  let name=$('newFileName').value.trim(),ext=$('newFileExt').value;
+  if(!name||name==='.'||name==='..'||/[\\/:*?"<>|]/.test(name))return notify('Informe um nome válido');
+  if(ext!=='other'&&!name.toLowerCase().endsWith('.'+ext))name+='.'+ext;
+  if(ext==='other'&&!name.includes('.'))return notify('Informe a extensão no próprio nome, por exemplo: arquivo.ini');
+  const content=$('newFileText').value;
+  const mime=ext==='html'?'text/html':ext==='json'?'application/json':ext==='js'?'text/javascript':ext==='css'?'text/css':'text/plain';
+  try{const dir=currentDevice();try{await dir.getFileHandle(name);return notify('Já existe um arquivo com esse nome')}catch(e){if(e.name!=='NotFoundError')throw e}
+  const h=await dir.getFileHandle(name,{create:true});const w=await h.createWritable();try{await w.write(new Blob([content],{type:mime+';charset=utf-8'}));await w.close()}catch(e){await w.abort().catch(()=>{});throw e}
+  close();await readDevice();logOperation('Criação',name);notify('Arquivo salvo: '+name)}catch(e){notify('Não foi possível salvar: '+e.message)}
+ }
+ function showSaveIdentity(){
+  const sheet=$('shade').querySelector('.sheet');
+  const old=document.createElement('div');old.className='save-identity-overlay';old.innerHTML='<div class="save-identity-card"><h2>Salvar arquivo</h2><p class="muted">Escolha nome e extensão.</p><input class="form-input" id="saveName" aria-label="Nome" placeholder="Nome"><select class="form-input" id="saveExt" aria-label="Extensão">'+options.map(e=>'<option value="'+e+'">'+(e==='other'?'Outra (no nome)':'.'+e)+'</option>').join('')+'</select><button class="primary" id="confirmSave">Confirmar e salvar</button><button class="secondary" id="cancelSave">Cancelar</button></div>';
+  sheet.append(old);$('saveName').value=$('newFileName').value;$('saveExt').value=$('newFileExt').value;
+  $('cancelSave').onclick=()=>old.remove();$('confirmSave').onclick=async()=>{$('newFileName').value=$('saveName').value;$('newFileExt').value=$('saveExt').value;old.remove();await persistNewText()};$('saveName').focus();$('saveName').select();
+ }
+}
+
+function openAddMenu(){openEmptyContext()}
+// Acesso autorizado pelo usuário a uma pasta REAL (não é cópia no IndexedDB).
+const currentDevice=()=>deviceStack.length?deviceStack[deviceStack.length-1]:deviceRoot;
+async function openDeviceFolder(){
+ close();
+ if(!window.showDirectoryPicker){show('<h2>Acesso à pasta indisponível</h2><p class="muted">Este navegador não permite gerenciar diretamente uma pasta real. Abra em um navegador compatível com acesso de leitura e escrita a pastas. O aplicativo não importa cópias para armazenamento privado.</p><button id="closeNoPicker" class="primary">Entendi</button>');$('closeNoPicker').onclick=close;return;}
+ try{const handle=await window.showDirectoryPicker({mode:'readwrite'});if(handle.requestPermission){let permission=await handle.queryPermission({mode:'readwrite'});if(permission!=='granted')permission=await handle.requestPermission({mode:'readwrite'});if(permission!=='granted')throw Error('É necessária autorização para editar esta pasta')}deviceRoot=handle;deviceStack=[];deviceMode=true;settingsOpen=false;rememberLocation({mode:'device',handles:[]});query='';$('search').value='';await readDevice();}
+ catch(e){if(e.name!=='AbortError')notify('Acesso direto não autorizado: '+e.message)}
+}
+async function readDevice(){
+ ++searchSerial;recursiveMatches=null;$('searchProgress').textContent='';
+ try{const next=[];for await(const [name,handle] of currentDevice().entries()){
+ let obj={name,handle,kind:handle.kind,created:0,size:0,type:''};if(handle.kind==='file'){try{let f=await handle.getFile();obj.size=f.size;obj.created=f.lastModified;obj.type=f.type}catch{}}next.push(obj)
+ }deviceEntries=next;render();if(query&&prefs.recursive)triggerSearch();}
+ catch(e){notify('Pasta indisponível ou permissão negada');deviceMode=false;render()}
+}
+function renderDevice(){
+ updateHistoryButtons();
+ syncPages();
+ $('deviceStatus').textContent='📂 Pasta conectada: '+deviceRoot.name+' · alterações feitas nos arquivos originais';
+ $('sectionTitle').textContent='📂 '+currentDevice().name;
+ $('usageText').textContent='Pasta real do aparelho';$('usagePercent').textContent=deviceEntries.length+' itens';$('usageBar').style.width='100%';
+ document.querySelectorAll('.tile').forEach(t=>t.classList.remove('active'));
+ document.querySelectorAll('nav button:not(.add)').forEach(b=>b.classList.remove('on'));
+ const path=$('breadcrumb');path.replaceChildren();const root=document.createElement('button');root.textContent=deviceRoot.name;root.onclick=async()=>{deviceStack=[];rememberLocation({mode:'device',handles:[]});await readDevice()};path.append(root);
+ deviceStack.forEach((h,i)=>{path.append(document.createTextNode(' / '));let b=document.createElement('button');b.textContent=h.name;b.onclick=async()=>{deviceStack=deviceStack.slice(0,i+1);rememberLocation({mode:'device',handles:[...deviceStack]});await readDevice()};path.append(b)});
+ const list=$('fileList');list.replaceChildren();applyPrefs();
+ let data=((query||filterExt||filterMin||filterMax)&&prefs.recursive&&recursiveMatches!==null?recursiveMatches:deviceEntries).filter(x=>matchesQuery(x));
+ data=data.filter(passesAdvancedFilters);data.sort((a,b)=>a.kind===b.kind?advancedCompare(a,b):(a.kind==='directory'?-1:1));if(!query)updateFolderCount(deviceEntries);else $("folderCount").classList.add("hidden");visibleSelectionKeys=data.map(x=>x.name);
+ if(!data.length){let div=document.createElement('div');div.className='empty';div.innerHTML='<span>📂</span><b>Nenhum item aqui</b><small>Segure aqui ou toque em ⋮ no topo para criar arquivos e pastas.</small>';list.append(div)}
+ for(const x of data){const row=document.createElement('div');row.className='file'+(selected.has(x.name)?' selected':'');let main=document.createElement('button');main.className='file-main';main.innerHTML='<span class="file-icon">'+(x.kind==='directory'?'📁':icon({kind:'file',type:x.type,name:x.name}))+'</span><span class="file-info"><span class="file-name">'+(isFav(x)?'★ ':'')+esc(x.name)+'</span><span class="file-meta">'+(x.kind==='directory'?'Pasta':fmt(x.size))+(x.relativePath?' · '+esc(x.relativePath):'')+'</span></span>';main.onclick=()=>{if(selectMode){toggleSelected(x.name)}else openDeviceItem(x)};let dots=document.createElement('button');dots.className='dots';dots.textContent=selectMode?(selected.has(x.name)?'☑':'□'):'⋮';dots.onclick=()=>selectMode?toggleSelected(x.name):deviceMenu(x);row.append(main,dots);attachLongPress(main,()=>openItemContext(x));main.addEventListener('pointerdown',e=>e.stopPropagation());main.addEventListener('contextmenu',e=>e.stopPropagation());list.append(row)}
+}
+async function openDeviceItem(x){try{if(x.kind==='directory'){if(x.parentHandles)deviceStack=[...x.parentHandles];deviceStack.push(x.handle);rememberLocation({mode:'device',handles:[...deviceStack]});await readDevice()}else{let f=await x.handle.getFile();await preview({name:x.name,kind:'file',type:f.type||x.type,size:f.size,created:f.lastModified,blob:f,handle:x.handle})}}catch(e){notify('Não foi possível abrir: '+e.message)}}
+function deviceMenu(x){actions(x.name,filterItemActions([[isFav(x)?'☆ Remover dos favoritos':'★ Adicionar aos favoritos','★',()=>{close();toggleFav(x)}],['ℹ️ Informações','ⓘ',()=>{close();showDetails(x)}],['Abrir','👁️',()=>{close();openDeviceItem(x)}],...(x.kind==='file'?[['Baixar cópia','⬇️',async()=>{try{let f=await x.handle.getFile();download({name:x.name,blob:f})}catch(e){notify(e.message)}}]]:[]),['📋 Copiar','📋',()=>stageClipboard('copy',[x])],['📦 Mover','📦',()=>stageClipboard('move',[x])],...(clipboard&&clipboard.device===deviceMode?[['📥 Colar nesta pasta','📥',pasteClipboard]]:[]),['☑ Selecionar','☑',()=>{close();selectMode=true;selected.add(x.name);render()}],['Renomear','✏️',()=>deviceRename(x)],['Excluir do celular','🗑️',()=>deviceDelete(x),true]]))}
+async function deviceDelete(x){close();if(!confirm('Excluir permanentemente "'+x.name+'" da pasta do celular'+(x.kind==='directory'?' e todo o conteúdo':'')+'?'))return;try{await currentDevice().removeEntry(x.name,{recursive:x.kind==='directory'});logOperation('Exclusão',x.name);notify('Excluído do celular');await readDevice()}catch(e){notify('Não foi possível excluir: '+e.message)}}
+async function copyHandle(src,dst){if(src.kind==='file'){let f=await src.getFile(),target=await dst.getFileHandle(src.name,{create:true});let writer=await target.createWritable();try{await writer.write(f);await writer.close()}catch(e){await writer.abort().catch(()=>{});throw e}}else{let child=await dst.getDirectoryHandle(src.name,{create:true});for await(let [,h] of src.entries())await copyHandle(h,child)}}
+async function deviceRename(x){show('<h2>Renomear no celular</h2><input id="devRenameInput" class="form-input" maxlength="200" value="'+esc(x.name)+'"><button class="primary" id="devRenameSave">Renomear</button><p class="muted">A renomeação copia para o novo nome e só depois remove o original. Pode exigir espaço extra.</p>');$('devRenameSave').onclick=async()=>{const name=$('devRenameInput').value.trim();if(!name||name==='.'||name==='..'||/[\\/]/.test(name))return notify('Nome inválido');if(name===x.name){close();return}try{const parent=currentDevice();try{await parent.getFileHandle(name)}catch(e){if(e.name!=='NotFoundError')throw e;try{await parent.getDirectoryHandle(name);throw Error('Já existe item com esse nome')}catch(d){if(d.name!=='NotFoundError')throw d}}// no-op
+ // Copia sem sobrescrever itens existentes.
+ if(x.kind==='file'){let src=await x.handle.getFile(),dst=await parent.getFileHandle(name,{create:true}),writer=await dst.createWritable();try{await writer.write(src);await writer.close()}catch(e){await writer.abort().catch(()=>{});throw e}}
+ else{let dst=await parent.getDirectoryHandle(name,{create:true});for await(let [,h] of x.handle.entries())await copyHandle(h,dst)}
+ await parent.removeEntry(x.name,{recursive:x.kind==='directory'});close();logOperation('Renomeação',x.name+' → '+name);notify('Renomeado');await readDevice()}catch(e){notify('Falhou: '+e.message)}}}
+async function deviceCreateFolder(){show('<h2>Criar pasta no celular</h2><input id="devFolderName" class="form-input" placeholder="Nome da pasta"><button id="devFolderSave" class="primary">Criar</button>');$('devFolderSave').onclick=async()=>{let name=$('devFolderName').value.trim();if(!name||/[\\/]/.test(name)||name==='.'||name==='..')return notify('Nome inválido');try{await currentDevice().getDirectoryHandle(name,{create:true});close();await readDevice();logOperation('Criação de pasta',name);notify('Pasta criada')}catch(e){notify('Erro: '+e.message)}};$('devFolderName').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('devFolderSave').click()}});setTimeout(()=>{$('devFolderName')?.focus();$('devFolderName')?.select()},120)}
+async function uploadToDevice(files){let count=0;for(let f of files){try{const h=await currentDevice().getFileHandle(f.name,{create:true});const w=await h.createWritable();await w.write(f);await w.close();count++}catch(e){notify('Erro ao salvar: '+e.message);break}}await readDevice();if(count)(logOperation('Importação',count+' arquivo(s) na pasta real'),notify(count+' arquivo(s) salvo(s) na pasta real'))}
+// Alternativa sem acesso de escrita: cópia da árvore selecionada para o IndexedDB.
+async function importFolderCopy(files){if(!files.length)return;const rootName=files[0].webkitRelativePath?.split('/')[0]||'Pasta importada';let rootId=uuid(),parents=new Map([['',rootId]]),records=[{id:rootId,name:rootName,kind:'folder',parent:null,created:Date.now()}];for(let f of files){let parts=(f.webkitRelativePath||f.name).split('/');parts.pop();let path='';for(const part of parts.slice(1)){const prior=path;path+=(path?'/':'')+part;if(!parents.has(path)){let id=uuid();parents.set(path,id);records.push({id,name:part,kind:'folder',parent:parents.get(prior),created:Date.now()})}}records.push({id:uuid(),name:f.name,kind:'file',type:f.type||'',size:f.size,created:f.lastModified||Date.now(),parent:parents.get(path),blob:f})}try{for(const r of records)await request('files','readwrite',os=>os.put(r));await refresh();navTo('home',rootId);(logOperation('Importação',rootName+': '+files.length+' arquivos'),notify('Cópia da pasta importada ('+files.length+' arquivos)'))}catch(e){notify('Espaço insuficiente para copiar a pasta')}}
+
+
+function rememberLocation(loc){
+ if(historyMute)return;
+ const same=a=>a&&a.mode===loc.mode&&(loc.mode==='internal'?a.v===loc.v&&a.f===loc.f&&a.c===loc.c:a.handles.length===loc.handles.length&&a.handles.every((h,i)=>h===loc.handles[i]));
+ if(same(history[historyIndex]))return;
+ history=history.slice(0,historyIndex+1);history.push(loc);if(history.length>70)history.shift();historyIndex=history.length-1;updateHistoryButtons();
+}
+function updateHistoryButtons(){const a=$('historyBack'),b=$('historyForward');if(a)a.disabled=historyIndex<=0;if(b)b.disabled=historyIndex>=history.length-1;}
+async function goHistory(step){const idx=historyIndex+step;if(idx<0||idx>=history.length)return;historyIndex=idx;const loc=history[idx];historyMute=true;try{
+ if(loc.mode==='device'&&deviceRoot){deviceMode=true;settingsOpen=false;deviceStack=[...loc.handles];await readDevice()}
+ else if(loc.mode==='internal'){navTo(loc.v,loc.f,loc.c)}
+ }finally{historyMute=false;updateHistoryButtons()}}
+function triggerSearch(){const id=++searchSerial;recursiveMatches=null;recursiveSearchRunning=false;$('searchProgress').textContent='';render();
+ if(!(deviceMode&&prefs.recursive&&(query.trim()||filterExt||filterMin||filterMax)))return;
+ const base=[...deviceStack],textQuery=query.toLocaleLowerCase(),matches=[];recursiveSearchRunning=true;$('searchProgress').textContent='Pesquisando subpastas…';
+ (async()=>{let visited=0;const walk=async(dir,parents,path,depth)=>{if(depth>32||visited>30000||id!==searchSerial)return;
+  for await(const [name,handle] of dir.entries()){if(id!==searchSerial||visited>=30000)return;visited++;
+   let obj={name,handle,kind:handle.kind,created:0,size:0,type:'',parentHandles:parents,relativePath:path};
+   if((!textQuery|| (textQuery.startsWith('.')?handle.kind==='file'&&name.toLocaleLowerCase().endsWith(textQuery):name.toLocaleLowerCase().includes(textQuery)))){if(handle.kind==='file'){try{const f=await handle.getFile();obj.size=f.size;obj.created=f.lastModified;obj.type=f.type}catch{}}matches.push(obj)}
+   if(handle.kind==='directory')await walk(handle,[...parents,handle],path?path+'/'+name:name,depth+1);
+   if(visited%75===0){$('searchProgress').textContent=visited+' itens verificados…';await new Promise(r=>setTimeout(r,0))}
+  }};
+ try{await walk(currentDevice(),base,'',0);if(id!==searchSerial)return;recursiveMatches=matches;recursiveSearchRunning=false;$('searchProgress').textContent=matches.length+' resultado(s) · '+visited+' itens verificados';render()}
+ catch(e){if(id===searchSerial){recursiveSearchRunning=false;$('searchProgress').textContent='Pesquisa interrompida: '+e.message;recursiveMatches=matches;render()}}})();
+}
+async function showDetails(x){
+ const isDir=(x.kind==='directory'||x.kind==='folder'),real=deviceMode;
+ let content='<h2>ℹ️ Informações</h2><p><strong>'+esc(x.name)+'</strong></p><p class="muted">Tipo: '+(isDir?'Pasta':esc(x.type||x.name.split('.').pop().toUpperCase()))+'</p>';
+ if(!isDir)content+='<p>Tamanho: '+fmt(x.size||0)+'</p><p>Extensão: '+esc(fileExt(x)||'(sem extensão)')+'</p><p>Modificado em: '+date(x.created||Date.now())+'</p>';
+ content+='<p class="muted">Local: '+esc(real?(deviceRoot?.name||'Pasta real')+'/'+deviceStack.map(h=>h.name).join('/'):'Armazenamento interno / '+folderPath().map(f=>f.name).join('/'))+'</p>';
+ if(isDir)content+='<button id="countDirBtn" class="primary">🔎 Contar arquivos e calcular tamanho da pasta</button><p id="countDirStatus" class="muted">A contagem é opcional e inclui todas as subpastas.</p>';
+ content+='<div class="detail-copy-actions"><button id="copyDetailName" type="button">📋 Copiar nome</button><button id="copyDetailPath" type="button">📋 Copiar caminho</button></div><button id="detailsClose" class="secondary">Fechar</button>';show(content);$('detailsClose').onclick=close;const locationPath=real?(deviceRoot?.name||'Pasta real')+'/'+[...deviceStack.map(h=>h.name),x.name].join('/'):['Armazenamento interno',...folderPath().map(f=>f.name),x.name].join('/');$('copyDetailName').onclick=()=>copyDetailValue(x.name);$('copyDetailPath').onclick=()=>copyDetailValue(locationPath);
+ if(!isDir)return;
+ $('countDirBtn').onclick=async()=>{const btn=$('countDirBtn');btn.disabled=true;const status=$('countDirStatus');status.textContent='Calculando…';let count=0,dirs=0,size=0;
+ try{if(real){const walk=async(handle,depth)=>{if(depth>40)throw Error('Limite de profundidade excedido');for await(const [,ch] of handle.entries()){if(ch.kind==='directory'){dirs++;await walk(ch,depth+1)}else{count++;size+=(await ch.getFile()).size}if(count%60===0)status.textContent=count+' arquivos encontrados…'}};await walk(x.handle,0)}
+ else{const ids=new Set(descendants(x.id));for(const y of items)if(ids.has(y.id)&&y.id!==x.id){if(y.kind==='folder')dirs++;else{count++;size+=y.size||0}}}
+ status.textContent=count+' arquivos · '+dirs+' subpastas · '+fmt(size);
+ }catch(e){status.textContent='Não foi possível completar: '+e.message}finally{btn.disabled=false}};
+}
+
+function showManual(){
+ show('<h2>📖 Manual do Files Explorer</h2><p class="muted">Gerenciador de pastas reais do aparelho · versão 4.1</p><h3>1. Conectar pasta</h3><p>Toque em Escolher pasta do celular e autorize leitura e gravação. Você verá os arquivos e subpastas reais. Não existe armazenamento interno próprio para documentos.</p><h3>2. Navegação</h3><p>Toque em uma pasta para entrar. Use o caminho de navegação e Voltar/Avançar para navegar; Atualizar relê a pasta. Cada elemento pode ser ocultado nas configurações.</p><h3>3. Menu de área vazia</h3><p>Toque no botão ⋮ ao lado da engrenagem ou mantenha pressionada uma área vazia da lista. Você poderá criar pasta, criar arquivo, importar arquivos, colar ou iniciar seleção.</p><h3>4. Criar e editar</h3><p>Crie arquivos de texto ou código escolhendo nome e extensão. Você pode ocultar esses campos: quando tocar em Salvar, eles aparecem em uma janela. Para editar arquivo existente, abra-o e toque em Editar; salve para gravar na pasta real.</p><h3>5. Colar</h3><p>O botão Colar tenta acessar a área de transferência do navegador. Se houver bloqueio, toque e segure no campo de texto e use Colar do Android.</p><h3>6. Seleção e ações</h3><p>Segure um item para abrir ações. Ative seleção múltipla para marcar vários itens. Copiar, mover, renomear e excluir podem exigir autorização do navegador; exclusões são permanentes.</p><h3>7. Busca e organização</h3><p>Pesquise por nome ou extensão (por exemplo .html), use filtros de tamanho, ordenação, favoritos, estatísticas e histórico. A busca em subpastas pode exigir mais tempo.</p><h3>8. Barra inferior e menus</h3><p>Os sete atalhos inferiores usam o mesmo tamanho e aparência. Qualquer posição, inclusive a quarta, pode receber outra função em Configurações → Barra inferior. No menu de cada item, use Copiar ou Mover e depois Colar aqui na pasta de destino. A seleção múltipla apresenta uma barra de ações quando houver itens marcados.</p><h3>9. Personalização</h3><p>Na engrenagem, escolha o que aparece na tela, ordem dos botões, grade/lista, tamanho dos cartões e layout do editor. Preferências são guardadas no navegador.</p><h3>10. Editor avançado</h3><p>Os campos de edição exibem números de linha ajustáveis e botões Desfazer/Refazer; o histórico fica somente enquanto o editor estiver aberto. Em Menus e seleção, use as setas para ordenar os comandos.</p><h3>11. Localizar, substituir e ir para linha</h3><p>No editor, toque em Localizar para procurar trechos, substituir uma ocorrência ou todas as correspondências exatas. No menu Localizar, use Ir à linha para posicionar o cursor. Se houver alterações não salvas, o visualizador avisa e pede confirmação antes de fechar.</p><h3>12. Salvar como, contador e atalhos</h3><p>Ao abrir um texto, use Salvar como para criar uma cópia com outro nome ou extensão na pasta atual sem modificar o original. No editor, consulte o contador de linhas, palavras e caracteres; ele pode ser ocultado em Configurações → Editor e atalhos. Os botões Selecionar tudo, Copiar seleção e Limpar texto funcionam na edição. Limpar exige confirmação e permite Desfazer.</p><h3>13. Preferências do editor</h3><p>Em Configurações → Editor, controle a quebra automática de linhas, tamanho da fonte (12 a 24 px) e quais botões aparecem na barra de edição. As escolhas serão usadas ao abrir um editor.</p><h3>14. Destaque, rascunhos e leitura</h3><p>Na aba Código, palavras-chave e elementos de código recebem cores sem executar o conteúdo. Rascunhos de texto até 180 mil caracteres são guardados no armazenamento local do navegador e oferecidos para recuperação ao reabrir; limpar dados do navegador os apaga. O botão Ler oculta ferramentas até você sair do modo de leitura. O destaque é aproximado, não um validador de sintaxe.</p><h3>15. Rascunhos, pesquisa na leitura e backup</h3><p>Em Configurações → Ferramentas, Gerenciar rascunhos permite baixar cópias de textos não salvos ou excluí-los. No visualizador, o botão Buscar destaca até mil ocorrências do texto no modo de leitura. Em Configurações → Editor, é possível desativar o backup automático; quando ativado, antes de sobrescrever um arquivo real o aplicativo cria uma cópia com sufixo .backup-data na mesma pasta. A cópia ocupa espaço extra; se o backup falhar, o arquivo original não será sobrescrito.</p><h3>16. Compatibilidade</h3><p>O navegador precisa permitir acesso de leitura e escrita à pasta real. Alguns navegadores Android ou modos de abertura de arquivos HTML locais bloqueiam essa API. Sem ela, este aplicativo não cria cópias internas.</p><button id="manualClose" class="primary">Fechar manual</button>');$('manualClose').onclick=close;
+}
+function syncPages(){
+ applyPrefs();updateStorageBadge();updateModeStatus();
+ $('startFolder').classList.toggle('hidden',deviceMode||settingsOpen);
+ $('settingsPage').classList.toggle('hidden',!settingsOpen);
+ $('browserPage').classList.toggle('hidden',settingsOpen||!deviceMode);
+ $('app').classList.toggle('browse-connected',deviceMode&&!settingsOpen);$('searchProgress').classList.toggle('hidden',settingsOpen);
+ $('topActions').classList.toggle('hidden',settingsOpen||!deviceMode);$('settingsNav').classList.toggle('on',settingsOpen);$('topSettings').setAttribute('aria-expanded',String(settingsOpen));$('topSettings').setAttribute('aria-label',settingsOpen?'Fechar configurações':'Abrir configurações');
+ $('homeNav').classList.toggle('on',deviceMode&&!settingsOpen);
+}
+function setupSettingsCategories(){
+ const page=$('settingsPage'),panel=page.querySelector('.settings-panel');if(page.dataset.categorized)return;page.dataset.categorized='1';
+ const menu=document.createElement('div');menu.id='settingsCategories';menu.className='settings-categories';page.insertBefore(menu,panel);const fs=$('settingsFullscreen');fs.textContent='⛶ Tela cheia';fs.className='settings-category settings-fullscreen-row';fs.removeAttribute('style');
+ const groups=[{key:'exibicao',title:'👁️ Exibição',desc:'Pesquisa, cartões e informações'},{key:'navegacao',title:'🧭 Navegação',desc:'Voltar, avançar e caminhos'},{key:'editor',title:'📝 Editor',desc:'Texto, código e ferramentas'},{key:'barra',title:'📱 Barra inferior',desc:'Mostrar, ocultar e personalizar 7 posições'},{key:'ferramentas',title:'🧰 Ferramentas',desc:'Relatórios, estatísticas e manual'},{key:'pasta',title:'📂 Pasta conectada',desc:'Consultar ou trocar a pasta'},{key:'menus',title:'🧩 Menus e seleção',desc:'Ações visíveis e destaque'},{key:'perfil',title:'💾 Perfis de aparência',desc:'Salvar e restaurar padrões'},{key:'sobre',title:'ℹ️ Sobre',desc:'Informações do aplicativo'}];
+ menu.append(fs);
+ const wrapper=document.createElement('div');wrapper.id='settingsDetails';page.insertBefore(wrapper,panel);
+ const panels={};for(const g of groups){const box=document.createElement('section');box.className='settings-section hidden';box.dataset.section=g.key;wrapper.append(box);panels[g.key]=box;const b=document.createElement('button');b.type='button';b.className='settings-category';b.innerHTML='<strong>'+g.title+'</strong><span>›</span>';b.onclick=()=>openSettingsCategory(g.key);menu.insertBefore(b,fs)}
+ const children=[...panel.children];let key='exibicao';for(const node of children){if(node.tagName==='H2'){const title=node.textContent;if(title.includes('Navegação'))key='navegacao';else if(title.includes('Editor e atalhos'))key='editor';else if(title.includes('Barra inferior'))key='barra';else if(title.includes('Ferramentas'))key='ferramentas';else if(title.includes('Ordem dos botões'))key='barra'}panels[key].append(node)}panel.remove();
+ // Destacar o controle de visibilidade da barra na seção correta.
+ const bottomCheck=$('showBottomNav').closest('label');panels.barra.prepend(bottomCheck);
+ const bottomHelp=[...panels.editor.querySelectorAll('p.muted')].find(el=>el.textContent.includes('barra inferior oculta'));if(bottomHelp)panels.barra.insertBefore(bottomHelp,bottomCheck.nextSibling);
+ const folder=page.querySelector('.settings-folder-switch');panels.pasta.append(folder);const importButton=document.createElement('button');importButton.type='button';importButton.className='secondary';importButton.textContent='📥 Importar arquivo para a pasta atual';importButton.onclick=()=>{if(!deviceMode)return notify('Escolha uma pasta primeiro');$('externalUpload').click()};panels.pasta.append(importButton);panels.menus.append($('customMenusPanel'));
+ const selControls=document.createElement('div');selControls.innerHTML='<h3>☑ Barra de seleção</h3><label class="setting-line"><span>Mostrar resumo fixo no topo durante a seleção</span><input type="checkbox" id="selectionStatusVisible"></label><p class="muted">Escolha os botões da barra acima da navegação inferior.</p><div id="selectionQuickControls"></div><h3>⋮ Outras ações</h3><label class="setting-line"><span>Mostrar Filtros combinados no menu rápido</span><input type="checkbox" id="menuFiltersVisible"></label><label class="setting-line"><span>Mostrar Inverter seleção no menu rápido</span><input type="checkbox" id="menuInvertVisible"></label>';
+ panels.menus.append(selControls);
+ const statusCheck=$('selectionStatusVisible');statusCheck.checked=prefs.selectionStatusVisible!==false;statusCheck.onchange=()=>{prefs.selectionStatusVisible=statusCheck.checked;persistPrefs()};
+ const quickHost=$('selectionQuickControls');for(const [key,title] of [['copy','📋 Copiar'],['cut','✂ Recortar'],['move','📦 Mover'],['delete','🗑 Excluir'],['exit','✕ Sair da seleção'],['invert','⇄ Inverter seleção']]){const row=document.createElement('label');row.className='setting-line';const span=document.createElement('span');span.textContent=title;const check=document.createElement('input');check.type='checkbox';check.checked=(prefs.selectionQuickVisible||{})[key]!==false&&(key!=='invert'||(prefs.selectionQuickVisible||{}).invert===true);check.onchange=()=>{prefs.selectionQuickVisible={...DEFAULT_PREFS.selectionQuickVisible,...(prefs.selectionQuickVisible||{}),[key]:check.checked};persistPrefs()};row.append(span,check);quickHost.append(row)}
+ for(const [id,key] of [['menuFiltersVisible','menuFilters'],['menuInvertVisible','menuInvert']]){const el=$(id);el.checked=!!prefs[key];el.onchange=()=>{prefs[key]=el.checked;persistPrefs()}}
+ panels.perfil.append($('personalPrefsPanel'));$('customMenusPanel').classList.remove('hidden');$('personalPrefsPanel').classList.remove('hidden');
+ const note=page.querySelector('.settings-note');if(note){panels.sobre.append(note)}
+ const about=document.createElement('p');about.className='muted';about.textContent='Files Explorer v4.4 · Gerenciador de pastas reais. As operações dependem das permissões do navegador.';panels.sobre.prepend(about);
+ const draftButton=document.createElement('button');draftButton.type='button';draftButton.className='secondary';draftButton.textContent='📝 Gerenciar rascunhos';draftButton.onclick=showDraftManager;panels.ferramentas.append(draftButton);
+ const backupLabel=document.createElement('label');backupLabel.className='setting-line';backupLabel.innerHTML='<span>💾 Criar backup antes de sobrescrever um arquivo editado</span><input type="checkbox" id="backupBeforeSave">';panels.editor.append(backupLabel);
+ const backupCheck=backupLabel.querySelector('input');backupCheck.checked=localStorage.getItem('fe31:backupBeforeSave')!=='off';backupCheck.onchange=()=>localStorage.setItem('fe31:backupBeforeSave',backupCheck.checked?'on':'off');
+ const back=document.createElement('button');back.className='secondary settings-return hidden';back.type='button';back.textContent='← Voltar às seções';back.onclick=()=>openSettingsCategory(null);wrapper.prepend(back);
+ window.openSettingsCategory=function(which){menu.classList.toggle('hidden',!!which);wrapper.classList.toggle('active',!!which);back.classList.toggle('hidden',!which);for(const [id,el] of Object.entries(panels))el.classList.toggle('hidden',which!==id);window.scrollTo({top:0,behavior:'instant'})};openSettingsCategory(null);
+}
+
+function renderSettings(){
+ syncPages();$('settingsNav').classList.add('on');
+ $('deviceStatus').textContent=deviceMode&&deviceRoot?'Pasta atual: '+deviceRoot.name:'Nenhuma pasta conectada.';
+ if(deviceMode){$('usageText').textContent='Pasta real do aparelho';$('usagePercent').textContent=deviceEntries.length+' itens';$('usageBar').style.width='100%'}
+}
+function openSettings(){settingsOpen=!settingsOpen;if(settingsOpen){openSettingsCategory(null);renderSettings();window.scrollTo({top:0,behavior:'instant'})}else if(deviceMode)renderDevice();else render()}
+function returnFiles(){settingsOpen=false;if(deviceMode)renderDevice();else syncPages()}
+function renderAbout(){category=null;$('sectionTitle').textContent='Sobre o aplicativo';$('breadcrumb').replaceChildren();$('fileList').innerHTML='<div class="empty" style="text-align:left"><span>🔒</span><b>Arquivos no seu celular</b><p>O aplicativo trabalha diretamente com a pasta real conectada, quando o navegador oferece essa permissão. Não envia os arquivos para um servidor.</p><p>Você pode selecionar uma pasta real nos navegadores compatíveis e autorizar leitura e escrita. Em outros navegadores, é possível importar somente uma cópia da pasta; ações nessa cópia não mudam os originais.</p><p>As preferências e os rascunhos podem ser perdidos ao limpar os dados do navegador. Guarde cópias de arquivos importantes.</p><p><strong>Versão:</strong> 3.9 · arquivo único</p></div>'}
+$('addBtn').onclick=openAddMenu;
+attachLongPress($('fileList'),()=>{if(deviceMode&&!document.querySelector('.shade'))openEmptyContext()});
+ $('browserPage').addEventListener('contextmenu',e=>{if(!deviceMode||e.target.closest('.file,.toolbar,.history-row,.crumb,button,input,textarea,.quick-panel'))return;e.preventDefault();openEmptyContext()});
+ let blankTimer=null,blankX=0,blankY=0;
+ $('browserPage').addEventListener('pointerdown',e=>{if(!deviceMode||e.target.closest('.file,button,input,textarea,.toolbar,.history-row,.crumb,.quick-panel'))return;blankX=e.clientX;blankY=e.clientY;clearTimeout(blankTimer);blankTimer=setTimeout(()=>{blankTimer=null;if(!document.querySelector('.shade'))openEmptyContext()},600)});
+ $('browserPage').addEventListener('pointermove',e=>{if(Math.abs(e.clientX-blankX)>10||Math.abs(e.clientY-blankY)>10)clearTimeout(blankTimer)});
+ for(const ev of ['pointercancel','pointerup','pointerleave'])$('browserPage').addEventListener(ev,()=>clearTimeout(blankTimer));
+
+const ACTION_KEYS=[['favorite','★ Favoritos'],['info','ℹ Informações'],['open','👁 Abrir'],['download','⬇ Baixar cópia'],['copy','📋 Copiar'],['move','📦 Mover'],['paste','📥 Colar'],['select','☑ Selecionar'],['rename','✏ Renomear'],['delete','🗑 Excluir']];
+function actionEnabled(key){return prefs.actionVisibility?.[key]!==false}
+function configureActionMenus(){
+ const host=$('actionVisibilitySettings');host.replaceChildren();
+ for(const [key,label] of ACTION_KEYS){const row=document.createElement('label');row.className='setting-line';const span=document.createElement('span');span.textContent=label;const input=document.createElement('input');input.type='checkbox';input.checked=actionEnabled(key);input.onchange=()=>{prefs.actionVisibility={...prefs.actionVisibility,[key]:input.checked};persistPrefs()};row.append(span,input);host.append(row)}
+ $('selectionProminent').checked=prefs.selectionProminent!==false;renderActionOrder();
+}
+function menuActionKey(label){
+ const l=String(label).toLocaleLowerCase('pt-BR');
+ const mapping=[['favorit','favorite'],['informaç','info'],['abrir','open'],['baixar cópia','download'],['baixar arquivo','download'],['copiar','copy'],['mover','move'],['colar','paste'],['selecionar','select'],['renomear','rename'],['excluir','delete']];
+ const found=mapping.find(([part])=>l.includes(part));return found?.[1]||null;
+}
+function filterItemActions(arr){const order=prefs.actionOrder||DEFAULT_PREFS.actionOrder;
+ return arr.filter(([label])=>{const key=menuActionKey(label);return !key||actionEnabled(key)})
+ .map((entry,i)=>({entry,i,rank:order.indexOf(menuActionKey(entry[0]))}))
+ .sort((a,b)=>(a.rank<0?999:a.rank)-(b.rank<0?999:b.rank)||a.i-b.i).map(x=>x.entry);
+}
+function renderActionOrder(){const host=$('actionOrderSettings');if(!host)return;host.replaceChildren();const keys=ACTION_KEYS.map(x=>x[0]);const saved=Array.isArray(prefs.actionOrder)?prefs.actionOrder:[];const order=[...new Set([...saved.filter(x=>keys.includes(x)),...keys])];prefs.actionOrder=order;
+ order.forEach((key,i)=>{const row=document.createElement('div');row.className='setting-line';const label=document.createElement('span');label.textContent=(i+1)+'. '+(ACTION_KEYS.find(x=>x[0]===key)?.[1]||key);row.append(label);
+ for(const [glyph,offset] of [['↑',-1],['↓',1]]){const b=document.createElement('button');b.type='button';b.className='secondary';b.textContent=glyph;b.style.cssText='width:43px;min-width:43px;margin:0;padding:8px';b.disabled=i+offset<0||i+offset>=order.length;b.onclick=()=>{const next=[...order];[next[i],next[i+offset]]=[next[i+offset],next[i]];prefs.actionOrder=next;persistPrefs();renderActionOrder()};row.append(b)}host.append(row)});
+}
+const EDITOR_TOOL_LABELS=[['undo','↶ Desfazer'],['redo','↷ Refazer'],['find','⌕ Localizar / Ir à linha'],['selectAll','Selecionar tudo'],['copyAll','Copiar seleção'],['clear','Limpar']];
+function renderEditorToolbarSettings(){const host=$('editorToolbarSettings');if(!host)return;host.replaceChildren();for(const [key,label] of EDITOR_TOOL_LABELS){const row=document.createElement('label');row.className='setting-line';const caption=document.createElement('span');caption.textContent=label;const input=document.createElement('input');input.type='checkbox';input.checked=prefs.editorToolVisibility?.[key]!==false;input.onchange=()=>{prefs.editorToolVisibility={...prefs.editorToolVisibility,[key]:input.checked};persistPrefs()};row.append(caption,input);host.append(row)}}
+function openEditorQuickSettings(controller){
+ const root=$('modalRoot').querySelector('.editor-sheet, .viewer-shade .sheet');if(!root)return;
+ const old=root.querySelector('.editor-settings-panel');if(old){old.remove();return}
+ const box=document.createElement('section');box.className='editor-settings-panel';
+ const title=document.createElement('h2');title.textContent='⚙ Configurações do editor';box.append(title);
+ const desc=document.createElement('p');desc.className='muted';desc.textContent='As mesmas preferências de Configurações → Editor, com os controles de posição dos botões e de numeração de linhas.';box.append(desc);
+ const section=document.createElement('div');section.className='editor-settings-main';section.innerHTML='<h3>✏️ Editor</h3><label><span>Mostrar nome e extensão ao criar arquivo</span><input type="checkbox" data-editor-check="editorIdentity"></label><label><span>Contador de linhas, palavras e caracteres</span><input type="checkbox" data-editor-check="editorStats"></label><label><span>Quebra automática das linhas</span><input type="checkbox" data-editor-check="editorWrap"></label><label><span>Tamanho da fonte</span><select class="form-input" id="quickEditorFont"><option value="12">12 px</option><option value="14">14 px</option><option value="16">16 px</option><option value="18">18 px</option><option value="20">20 px</option><option value="24">24 px</option></select></label><label><span>Backup antes de salvar alterações</span><input type="checkbox" id="quickEditorBackup"></label><h3>🛠 Posição dos botões</h3>';
+ box.append(section);
+ for(const el of section.querySelectorAll('[data-editor-check]')){const k=el.dataset.editorCheck;el.checked=prefs[k]!==false;el.onchange=()=>{prefs[k]=el.checked;persistPrefs();controller.refresh();if(k==='editorWrap'||k==='editorStats')notify('Essa preferência será aplicada ao reabrir o editor.')}}
+ const font=section.querySelector('#quickEditorFont');font.value=String(prefs.editorFontSize||16);font.onchange=()=>{prefs.editorFontSize=Number(font.value);persistPrefs();notify('Tamanho de fonte salvo. Será aplicado ao reabrir a edição.')};
+ const bk=section.querySelector('#quickEditorBackup');bk.checked=localStorage.getItem('fe31:backupBeforeSave')!=='off';bk.onchange=()=>localStorage.setItem('fe31:backupBeforeSave',bk.checked?'on':'off');
+ for(const [key,label] of [...EDITOR_TOOL_LABELS.filter(([k])=>k!=='line'),['paste','Colar'],['save','Salvar']]){
+  if(['paste','save'].includes(key))continue;
+  const row=document.createElement('label'),span=document.createElement('span'),sel=document.createElement('select');span.textContent=label;sel.className='form-input';
+  for(const [value,text] of [['bottom','Embaixo'],['top','Em cima'],['hidden','Ocultar']]){const opt=document.createElement('option');opt.value=value;opt.textContent=text;sel.append(opt)}
+  sel.value=prefs.editorToolVisibility?.[key]===false?'hidden':(prefs.editorToolPositions?.[key]||'bottom');sel.onchange=()=>{prefs.editorToolPositions={...prefs.editorToolPositions,[key]:sel.value==='hidden'?'bottom':sel.value};prefs.editorToolVisibility={...prefs.editorToolVisibility,[key]:sel.value!=='hidden'};persistPrefs();controller.refreshLayout()};row.append(span,sel);box.append(row);
+ }
+ const lineRow=document.createElement('label');lineRow.textContent='Numeração das linhas';const lineSel=document.createElement('select');lineSel.className='form-input';for(const [v,label] of [['auto','Completa e adaptável'],['last2','Somente 2 últimos dígitos']]){const option=document.createElement('option');option.value=v;option.textContent=label;lineSel.append(option)}lineSel.value=prefs.editorGutterMode||'auto';lineSel.onchange=()=>{prefs.editorGutterMode=lineSel.value;persistPrefs();controller.refresh()};lineRow.append(lineSel);box.append(lineRow);
+
+ const done=document.createElement('button');done.className='primary';done.textContent='Concluído';done.onclick=()=>box.remove();box.append(done);root.append(box);
+}
+// Histórico leve de edição independente do navegador; acompanha digitação e ações de colagem.
+function wireCodeEditor(ta,container){
+ const gutter=document.createElement('div');gutter.className='code-gutter';gutter.setAttribute('aria-hidden','true');
+ container.classList.add('code-edit-wrap');container.prepend(gutter);
+ const fontSize=[12,14,16,18,20,24].includes(Number(prefs.editorFontSize))?Number(prefs.editorFontSize):16;ta.style.fontSize=fontSize+'px';ta.style.lineHeight='1.6';ta.style.whiteSpace=prefs.editorWrap?'pre-wrap':'pre';ta.style.overflowWrap=prefs.editorWrap?'anywhere':'normal';ta.wrap=prefs.editorWrap?'soft':'off';gutter.style.fontSize=Math.max(11,fontSize-2)+'px';gutter.style.lineHeight='1.6';
+ const toolbar=document.createElement('div');toolbar.className='edit-tools';toolbar.dataset.editorToolbar='true';
+ const undo=document.createElement('button'),redo=document.createElement('button');undo.type=redo.type='button';undo.textContent='↶';redo.textContent='↷';undo.title='Desfazer';redo.title='Refazer';toolbar.append(undo,redo);container.before(toolbar);
+ let snapshots=[ta.value],index=0,lastInput=0;
+
+ // Busca e substituição trabalham apenas no texto do editor atual.
+ const findButton=document.createElement('button'),lineButton=document.createElement('button');
+ findButton.type=lineButton.type='button';findButton.textContent='⌕';findButton.title='Localizar, substituir e ir à linha';lineButton.textContent='↳ Ir à linha';
+ toolbar.append(findButton);
+ const selectAll=document.createElement('button'),copyAll=document.createElement('button'),clearText=document.createElement('button');
+ selectAll.type=copyAll.type=clearText.type='button';
+ selectAll.textContent='Tudo';selectAll.title='Selecionar tudo';copyAll.textContent='Copiar';clearText.textContent='Limpar';
+ toolbar.append(selectAll,copyAll,clearText);
+ for(const [key,button] of [['undo',undo],['redo',redo],['find',findButton],['selectAll',selectAll],['copyAll',copyAll],['clear',clearText]]){if(prefs.editorToolVisibility?.[key]===false)button.classList.add('hidden');}
+ selectAll.onclick=()=>{ta.focus();ta.select()};
+ copyAll.onclick=async()=>{const start=ta.selectionStart,end=ta.selectionEnd;if(start===end)return notify('Selecione o trecho que deseja copiar, ou use Tudo para selecionar tudo.');const value=ta.value.slice(start,end);try{await navigator.clipboard.writeText(value);notify('Seleção copiada.')}catch(e){ta.focus();ta.setSelectionRange(start,end);notify('Use Copiar no menu do celular para copiar a seleção.')}};
+ clearText.onclick=()=>{if(!ta.value)return;if(!confirm('Limpar todo o conteúdo do editor? Você poderá usar Desfazer.'))return;ta.focus();ta.setRangeText('',0,ta.value.length,'end');ta.dispatchEvent(new Event('input',{bubbles:true}))};
+ const counter=document.createElement('div');counter.className='edit-stat-counter';counter.setAttribute('aria-live','off');
+ container.after(counter);
+ const updateCounter=()=>{counter.hidden=!prefs.editorStats;if(counter.hidden)return;const t=ta.value;const lines=t.split('\n').length;const words=(t.trim().match(/\S+/gu)||[]).length;counter.textContent=lines+' linha(s) · '+words+' palavra(s) · '+[...t].length+' caractere(s)'};
+ ta.addEventListener('input',updateCounter);updateCounter();
+
+ const panel=document.createElement('div');panel.className='edit-find-panel hidden';
+ panel.innerHTML='<input type="text" class="find-query" placeholder="Texto para procurar" aria-label="Texto para procurar"><input type="text" class="replace-query" placeholder="Substituir por (pode ficar vazio)" aria-label="Texto substituto"><div class="edit-find-actions"><button type="button" class="secondary find-next">Próximo</button><button type="button" class="secondary replace-one">Substituir</button><button type="button" class="secondary replace-all">Substituir todos</button></div><div class="edit-line-row"><label>Linha</label><input type="number" class="line-number" min="1" step="1" inputmode="numeric" placeholder="Nº da linha" aria-label="Número da linha"><button type="button" class="secondary go-line">Ir</button></div><div class="edit-find-status" aria-live="polite"></div>';
+ toolbar.after(panel);
+ const query=panel.querySelector('.find-query'),sub=panel.querySelector('.replace-query'),lineInput=panel.querySelector('.line-number'),status=panel.querySelector('.edit-find-status');
+ const message=t=>{status.textContent=t};
+ const reveal=focus=>{panel.classList.remove('hidden');(focus==='line'?lineInput:query).focus()};
+ findButton.onclick=()=>{if(!panel.classList.contains('hidden'))panel.classList.add('hidden');else reveal('find')};
+ lineButton.onclick=()=>reveal('line');
+ const nextMatch=(start=ta.selectionEnd)=>{const needle=query.value;if(!needle)return message('Digite um texto para pesquisar.'),-1;let pos=ta.value.indexOf(needle,start);if(pos<0)pos=ta.value.indexOf(needle,0);if(pos<0)return message('Texto não encontrado.'),-1;ta.focus();ta.setSelectionRange(pos,pos+needle.length);const prev=ta.value.slice(0,pos).split('\n').length;message('Encontrado na linha '+prev+'.');return pos};
+ panel.querySelector('.find-next').onclick=()=>nextMatch();
+ query.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();nextMatch()}});
+ const commitChange=(start,end,text)=>{ta.focus();ta.setRangeText(text,start,end,'end');ta.dispatchEvent(new Event('input',{bubbles:true}));};
+ panel.querySelector('.replace-one').onclick=()=>{const needle=query.value;if(!needle)return message('Digite o texto procurado.');let start=ta.selectionStart;if(ta.value.slice(start,ta.selectionEnd)!==needle){start=nextMatch();if(start<0)return;}commitChange(start,start+needle.length,sub.value);message('Uma ocorrência substituída.');};
+ panel.querySelector('.replace-all').onclick=()=>{const needle=query.value;if(!needle)return message('Digite o texto procurado.');const pieces=ta.value.split(needle);const count=pieces.length-1;if(!count)return message('Texto não encontrado.');if(count>1&&!confirm('Substituir '+count+' ocorrências neste arquivo?'))return;const result=pieces.join(sub.value);commitChange(0,ta.value.length,result);message(count+' ocorrência(s) substituída(s). Use Desfazer para reverter.');};
+ const goLine=()=>{const number=Number(lineInput.value),lines=ta.value.split('\n');if(!Number.isInteger(number)||number<1)return message('Informe uma linha válida.');const line=Math.min(number,lines.length);let start=0;for(let i=0;i<line-1;i++)start+=lines[i].length+1;ta.focus();ta.setSelectionRange(start,start);const style=getComputedStyle(ta),height=parseFloat(style.lineHeight)||20;ta.scrollTop=Math.max(0,(line-3)*height);message('Linha '+line+' de '+lines.length+'.');};
+ panel.querySelector('.go-line').onclick=goLine;lineInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();goLine()}});
+ const sync=()=>{updateCounter();const count=Math.min(20000,ta.value.split('\n').length);gutter.textContent=Array.from({length:count},(_,i)=>i+1).map(n=>prefs.editorGutterMode==='last2'?String(n%100).padStart(2,'0'):n).join('\n');const digits=prefs.editorGutterMode==='last2'?2:Math.max(1,String(count).length);gutter.style.flex='0 0 '+Math.max(25,13+digits*(fontSize*.65))+'px';gutter.scrollTop=ta.scrollTop;undo.disabled=index===0;redo.disabled=index===snapshots.length-1};
+ const record=()=>{if(ta.value===snapshots[index])return;const now=Date.now();
+ if(now-lastInput<550&&index===snapshots.length-1&&snapshots.length>1){snapshots[index]=ta.value}else{snapshots=snapshots.slice(0,index+1);snapshots.push(ta.value);if(snapshots.length>100)snapshots.shift();index=snapshots.length-1;}lastInput=now;sync()};
+ ta.addEventListener('input',record);ta.addEventListener('scroll',sync,{passive:true});
+ const step=d=>{const next=index+d;if(next<0||next>=snapshots.length)return;index=next;ta.value=snapshots[index];ta.dispatchEvent(new Event('input',{bubbles:true})); // histórico reconhece o estado restaurado
+ sync();ta.focus()};
+ // Dispatch above triggers record while the current snapshot matches, so no new state is added.
+ undo.onclick=()=>step(-1);redo.onclick=()=>step(1);
+ ta.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&!e.altKey&&(e.key.toLowerCase()==='z'||e.key.toLowerCase()==='y')){e.preventDefault();const redoKey=e.key.toLowerCase()==='y'||e.shiftKey;step(redoKey?1:-1)}});
+ const tools={undo,redo,find:findButton,selectAll,copyAll,clear:clearText};
+ for(const [key,button] of Object.entries(tools)){button.dataset.editorTool=key;button.title=button.title||button.textContent;}
+ const refreshLayout=()=>{
+  const selected=prefs.editorToolPositions||{};for(const [key,button] of Object.entries(tools))button.classList.toggle('hidden',prefs.editorToolVisibility?.[key]===false);
+  const bottom=container.closest('.editor-sheet, .viewer-shade')?.querySelector('.editor-quick-bottom');
+  if(bottom){const top=container.closest('.editor-sheet, .viewer-shade')?.querySelector('.editor-quick-top');for(const [key,button] of Object.entries(tools))(selected[key]==='top'?top:bottom).append(button);toolbar.classList.add('hidden');if(top)top.classList.toggle('hidden',!top.children.length);}
+ };
+ sync();return {refresh:sync,toolbar,panel,tools,refreshLayout};
+}
+const DOCK_OPTIONS=[['home','📁 Pasta atual'],['folders','▤ Pasta raiz'],['search','⌕ Buscar'],['add','＋ Criar'],['recent','☑ Seleção'],['tools','⋯ Ações'],['settings','⚙ Config.'],['favorites','★ Favoritos'],['refresh','⟳ Atualizar'],['sort','⇅ Ordenar'],['historyBack','◀ Voltar'],['historyForward','▶ Avançar'],['none','— Vazio —']];
+const DOCK_IDS={home:'homeNav',folders:'foldersNav',search:'searchNav',add:'addBtn',recent:'recentNav',tools:'toolsNav',settings:'settingsNav'};
+function renderDockSettings(){const host=$('dockSlotSettings');host.replaceChildren();const slots=validDock();
+ for(let i=0;i<7;i++){const row=document.createElement('label');row.className='dock-config-row';const title=document.createElement('strong');title.textContent='Posição '+(i+1)+(i===3?' (meio)':'');row.append(title);const sel=document.createElement('select');sel.className='form-input';for(const [v,label] of DOCK_OPTIONS){const opt=document.createElement('option');opt.value=v;opt.textContent=label;sel.append(opt)}sel.value=slots[i];sel.onchange=()=>{const updated=validDock();updated[i]=sel.value;prefs.dockSlots=updated;persistPrefs();renderDockSettings()};row.append(sel);host.append(row)}}
+function validDock(){const defaultSlots=['home','folders','search','recent','favorites','historyBack','historyForward'];const values=Array.isArray(prefs.dockSlots)?prefs.dockSlots:defaultSlots;return defaultSlots.map((x,i)=>DOCK_OPTIONS.some(([v])=>v===values[i])?values[i]:x)}
+function toggleSearchBar(){
+ if(!deviceMode)return notify('Escolha uma pasta do celular');
+ prefs.search=!prefs.search;persistPrefs();
+ // Esconder o campo não apaga o termo nem os resultados já filtrados.
+ if(prefs.search){$('search').focus();window.scrollTo({top:0,behavior:'smooth'})}
+ else $('search').blur();
+}
+function renderDock(){const nav=$('bottomNav'),slots=validDock();const nodes=[...nav.children];
+ // Reuse existing seven elements. Slots may repeat a function and each keeps a unique DOM id.
+ const labels={home:['⌂','Pasta'],folders:['▤','Raiz'],search:['⌕','Buscar'],add:['＋','Criar'],recent:['☑','Seleção'],tools:['⋯','Ações'],settings:['⚙','Config.'],favorites:['★','Favoritos'],refresh:['⟳','Atualizar'],sort:['⇅','Ordenar'],historyBack:['◀','Voltar'],historyForward:['▶','Avançar'],none:['','']};
+ const invoke={home:returnFiles,folders:()=>{if(deviceMode){settingsOpen=false;deviceStack=[];readDevice()}else openDeviceFolder()},search:toggleSearchBar,add:openAddMenu,recent:toggleSelectionMode,tools:()=>selected.size?openBatchMenu():openEmptyContext(),settings:openSettings,favorites:openFavorites,refresh:()=>deviceMode?readDevice():refresh(),sort:advancedSort,historyBack:()=>goHistory(-1),historyForward:()=>goHistory(1),none:()=>{}};
+ for(let i=0;i<7;i++){const el=nodes[i],key=slots[i],[glyph,title]=labels[key];el.className=(settingsOpen&&key==='settings'?'on':'');el.innerHTML='<b>'+glyph+'</b>'+title;el.setAttribute('aria-label',title||'Posição vazia');el.onclick=invoke[key];el.disabled=key==='none';el.classList.toggle('dock-placeholder',key==='none');el.classList.toggle('hidden',false)}
+}
+function syncSelectionHighlight(){const enabled=!!selectMode&&prefs.selectionProminent!==false;$('app').classList.toggle('selection-active',enabled);let banner=$('selectionModeBanner');if(!banner){banner=document.createElement('div');banner.id='selectionModeBanner';banner.className='selection-mode-label';$('browserPage').insertBefore(banner,$('browserPage').firstChild)}banner.classList.add('hidden');if(enabled)banner.textContent='☑ MODO DE SELEÇÃO · '+selected.size+' selecionado(s) — toque para marcar ou desmarcar'}
+function personalProfileStatus(){const has=!!localStorage.getItem('filesExplorerPersonalPrefsV24');$('restorePersonalPrefs').disabled=!has;$('personalPrefsStatus').textContent=has?'Seu perfil pessoal está salvo neste navegador.':'Nenhum perfil pessoal salvo ainda.'}
+function applyProfile(obj){prefs={...DEFAULT_PREFS,...obj};persistPrefs();configureActionMenus();renderDockSettings();renderToolbarOrderSettings();renderEditorToolbarSettings();renderSettings();if(deviceMode)renderDevice();else render();}
+function setupPersonalProfiles(){const save=$('savePersonalPrefs'),personal=$('restorePersonalPrefs'),factory=$('restoreFactoryPrefs');save.onclick=()=>{try{localStorage.setItem('filesExplorerPersonalPrefsV24',JSON.stringify(prefs));personalProfileStatus();notify('Configuração pessoal salva')}catch{notify('Não foi possível salvar neste navegador')}};personal.onclick=()=>{try{const saved=JSON.parse(localStorage.getItem('filesExplorerPersonalPrefsV24')||'null');if(!saved)return notify('Nenhum perfil salvo');if(confirm('Aplicar sua configuração pessoal salva?'))applyProfile(saved)}catch{notify('Perfil inválido')}};factory.onclick=()=>{if(confirm('Restaurar somente a aparência de fábrica? Arquivos e pastas não serão alterados.'))applyProfile(DEFAULT_PREFS)};personalProfileStatus();}
+
+$('settingsFullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch(e){notify('Tela cheia indisponível neste navegador ou na abertura local.')}};$('settingsStats').onclick=showFileStatistics;$('settingsHistory').onclick=showOperationHistory;$('topSettings').onclick=openSettings;$('topActions').onclick=()=>selected.size?openBatchMenu():openEmptyContext();$('settingsManual').onclick=showManual;$('historyBack').onclick=()=>goHistory(-1);$('historyForward').onclick=()=>goHistory(1);$('settingsHome').onclick=()=>navTo('home');$('settingsFolders').onclick=()=>{if(deviceMode){settingsOpen=false;deviceStack=[];readDevice()}else navTo('folders')};$('settingsRecent').onclick=()=>navTo('recent');$('settingsAdd').onclick=openAddMenu;setupSettingsCategories();initPrefs();configureActionMenus();renderDockSettings();setupPersonalProfiles();
+$('openDeviceFolder').onclick=openDeviceFolder;$('startChoose').onclick=openDeviceFolder;$('folderPicker').onchange=async e=>{await importFolderCopy([...e.target.files]);e.target.value=''};$('externalUpload').onchange=async e=>{if(deviceMode)await uploadToDevice([...e.target.files]);e.target.value=''};$('filePicker').onchange=async e=>{await importFiles(e.target.files);e.target.value=''};$('search').oninput=e=>{query=e.target.value;triggerSearch()};$('search').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('search').blur()}});$('homeNav').onclick=returnFiles;$('foldersNav').onclick=()=>{if(deviceMode){settingsOpen=false;deviceStack=[];readDevice()}else openDeviceFolder()};$('recentNav').onclick=toggleSelectionMode;$('searchNav').onclick=toggleSearchBar;$('toolsNav').onclick=()=>selected.size?openBatchMenu():openEmptyContext();$('settingsNav').onclick=openSettings;$('sortBtn').onclick=advancedSort;$('selectBtn').onclick=toggleSelectionMode;$('batchBtn').onclick=()=>actions('Ferramentas',[['☑ Selecionar por quantidade','☑',()=>{close();selectFirstCount()}],['☑ Selecionar resultados da pesquisa','🔎',()=>{close();selectSearchResults()}],['📜 Histórico de operações','📜',()=>{close();showOperationHistory()}],['📊 Estatísticas de arquivos','📊',()=>{close();showFileStatistics()}],['🔎 Filtros combinados','⌕',()=>{close();filterDialog()}],['☑ Selecionar por extensão','☑',()=>{close();selectByType()}],['★ Favoritos','★',()=>{close();openFavorites()}],['⇄ Inverter seleção','⇄',()=>{close();invertSelection()}],['⋯ Ações e seleção','⋯',()=>{close();openBatchMenu()}]]);$('favoritesBtn').onclick=openFavorites;$('refreshTop').onclick=()=>deviceMode?readDevice():refresh();
+syncPages(); if('indexedDB' in window){initDB().then(()=>refresh()).catch(()=>{});} if(!deviceMode)syncPages();
+})();
+</script>
+<script>
+// PWA: registra cache do aplicativo, sem armazenar arquivos do usuário no service worker.
+if ('serviceWorker' in navigator && window.isSecureContext) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js', {scope: './'}).catch(err => {
+      console.info('Modo offline indisponível neste navegador:', err.message);
+    });
+  });
+}
+</script>
+</body></html>
